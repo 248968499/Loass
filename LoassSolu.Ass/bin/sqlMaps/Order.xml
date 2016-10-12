@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="OrderEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].Order 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="O_Name">O_Name</isNotEmpty>
+                        <isNotEmpty prepend="," property="O_Price">O_Price</isNotEmpty>
+                        <isNotEmpty prepend="," property="O_UsrCoupon">O_UsrCoupon</isNotEmpty>
+                        <isNotEmpty prepend="," property="U_ID">U_ID</isNotEmpty>
+                        <isNotEmpty prepend="," property="O_CreateTime">O_CreateTime</isNotEmpty>
+                        <isNotEmpty prepend="," property="O_StartTime">O_StartTime</isNotEmpty>
+                        <isNotEmpty prepend="," property="O_EndTime">O_EndTime</isNotEmpty>
+                        <isNotEmpty prepend="," property="O_UserRemark">O_UserRemark</isNotEmpty>
+                        <isNotEmpty prepend="," property="O_State">O_State</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="O_Name">#O_Name#</isNotEmpty>
+                    <isNotEmpty prepend="," property="O_Price">#O_Price#</isNotEmpty>
+                    <isNotEmpty prepend="," property="O_UsrCoupon">#O_UsrCoupon#</isNotEmpty>
+                    <isNotEmpty prepend="," property="U_ID">#U_ID#</isNotEmpty>
+                    <isNotEmpty prepend="," property="O_CreateTime">#O_CreateTime#</isNotEmpty>
+                    <isNotEmpty prepend="," property="O_StartTime">#O_StartTime#</isNotEmpty>
+                    <isNotEmpty prepend="," property="O_EndTime">#O_EndTime#</isNotEmpty>
+                    <isNotEmpty prepend="," property="O_UserRemark">#O_UserRemark#</isNotEmpty>
+                    <isNotEmpty prepend="," property="O_State">#O_State#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="O_Id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[Order] 
+            <dynamic prepend="set">
+                            <isNotNull property="O_Name" prepend=",">O_Name=#O_Name#</isNotNull>
+                            <isNotNull property="O_Price" prepend=",">O_Price=#O_Price#</isNotNull>
+                            <isNotNull property="O_UsrCoupon" prepend=",">O_UsrCoupon=#O_UsrCoupon#</isNotNull>
+                            <isNotNull property="U_ID" prepend=",">U_ID=#U_ID#</isNotNull>
+                            <isNotNull property="O_CreateTime" prepend=",">O_CreateTime=#O_CreateTime#</isNotNull>
+                            <isNotNull property="O_StartTime" prepend=",">O_StartTime=#O_StartTime#</isNotNull>
+                            <isNotNull property="O_EndTime" prepend=",">O_EndTime=#O_EndTime#</isNotNull>
+                            <isNotNull property="O_UserRemark" prepend=",">O_UserRemark=#O_UserRemark#</isNotNull>
+                            <isNotNull property="O_State" prepend=",">O_State=#O_State#</isNotNull>
+                            <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+             </dynamic>
+            where O_Id = #O_Id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[Order] 
+            WHERE O_Id = #O_Id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="orderEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            O_Id,O_Name,O_Price,O_UsrCoupon,U_ID,O_CreateTime,O_StartTime,O_EndTime,O_UserRemark,O_State,IsDelState from Order
+            <dynamic prepend="where">
+                       <isNotEmpty property="O_Id" prepend="and">O_Id=#O_Id#</isNotEmpty>
+                       <isNotEmpty property="O_Name" prepend="and">O_Name=#O_Name#</isNotEmpty>
+                       <isNotEmpty property="O_Price" prepend="and">O_Price=#O_Price#</isNotEmpty>
+                       <isNotEmpty property="O_UsrCoupon" prepend="and">O_UsrCoupon=#O_UsrCoupon#</isNotEmpty>
+                       <isNotEmpty property="U_ID" prepend="and">U_ID=#U_ID#</isNotEmpty>
+                       <isNotEmpty property="O_CreateTime" prepend="and">O_CreateTime=#O_CreateTime#</isNotEmpty>
+                       <isNotEmpty property="O_StartTime" prepend="and">O_StartTime=#O_StartTime#</isNotEmpty>
+                       <isNotEmpty property="O_EndTime" prepend="and">O_EndTime=#O_EndTime#</isNotEmpty>
+                       <isNotEmpty property="O_UserRemark" prepend="and">O_UserRemark=#O_UserRemark#</isNotEmpty>
+                       <isNotEmpty property="O_State" prepend="and">O_State=#O_State#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+            order by O_Id desc
+		</select>
+
+
+    <select id="order_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(O_Id) from Order
+            <dynamic prepend="where">
+                       <isNotEmpty property="O_Id" prepend="and">O_Id=#O_Id#</isNotEmpty>
+                       <isNotEmpty property="O_Name" prepend="and">O_Name=#O_Name#</isNotEmpty>
+                       <isNotEmpty property="O_Price" prepend="and">O_Price=#O_Price#</isNotEmpty>
+                       <isNotEmpty property="O_UsrCoupon" prepend="and">O_UsrCoupon=#O_UsrCoupon#</isNotEmpty>
+                       <isNotEmpty property="U_ID" prepend="and">U_ID=#U_ID#</isNotEmpty>
+                       <isNotEmpty property="O_CreateTime" prepend="and">O_CreateTime=#O_CreateTime#</isNotEmpty>
+                       <isNotEmpty property="O_StartTime" prepend="and">O_StartTime=#O_StartTime#</isNotEmpty>
+                       <isNotEmpty property="O_EndTime" prepend="and">O_EndTime=#O_EndTime#</isNotEmpty>
+                       <isNotEmpty property="O_UserRemark" prepend="and">O_UserRemark=#O_UserRemark#</isNotEmpty>
+                       <isNotEmpty property="O_State" prepend="and">O_State=#O_State#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="order_list" listClass="list" resultClass="orderEntity" parameterClass="System.Collections.IDictionary">
+            with order_list as
+            (
+            select  O_Id,O_Name,O_Price,O_UsrCoupon,U_ID,O_CreateTime,O_StartTime,O_EndTime,O_UserRemark,O_State,IsDelState,ROW_NUMBER() OVER (order by O_Id desc) as pos from Order
+            <dynamic prepend="where">
+                       <isNotEmpty property="O_Id" prepend="and">O_Id=#O_Id#</isNotEmpty>
+                       <isNotEmpty property="O_Name" prepend="and">O_Name=#O_Name#</isNotEmpty>
+                       <isNotEmpty property="O_Price" prepend="and">O_Price=#O_Price#</isNotEmpty>
+                       <isNotEmpty property="O_UsrCoupon" prepend="and">O_UsrCoupon=#O_UsrCoupon#</isNotEmpty>
+                       <isNotEmpty property="U_ID" prepend="and">U_ID=#U_ID#</isNotEmpty>
+                       <isNotEmpty property="O_CreateTime" prepend="and">O_CreateTime=#O_CreateTime#</isNotEmpty>
+                       <isNotEmpty property="O_StartTime" prepend="and">O_StartTime=#O_StartTime#</isNotEmpty>
+                       <isNotEmpty property="O_EndTime" prepend="and">O_EndTime=#O_EndTime#</isNotEmpty>
+                       <isNotEmpty property="O_UserRemark" prepend="and">O_UserRemark=#O_UserRemark#</isNotEmpty>
+                       <isNotEmpty property="O_State" prepend="and">O_State=#O_State#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+          )
+
+          select O_Id,O_Name,O_Price,O_UsrCoupon,U_ID,O_CreateTime,O_StartTime,O_EndTime,O_UserRemark,O_State,IsDelState from order_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

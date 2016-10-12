@@ -1,0 +1,173 @@
+﻿@{
+    ViewBag.Title = "主页";
+}
+<div class="content-warp">
+    <div class="container">
+        <div class="row">
+
+            <!--start main content aera-->
+            <div class="col-md-9  main-content">
+
+                <div class="post nav-info  animation">
+                    <p class="posts-info">推荐阅读</p>
+                    <p class="post-cnt">共 7 篇文章</p>
+                </div>
+
+                <div class="post animation">
+                    <a class="featured" title="推荐"></a>
+
+                    <h4 class="post-title">
+                        <a href="/blog/article/73" class="animation">用 C 扩展 PHP 第一章 最简方法入门</a>
+                    </h4>
+                    <p class="time">作者: Tony &nbsp; 2016.08.10</p>
+
+
+                    <p class="descript">
+                        PHP 虽然没有商业公司运作, 也能凭借其易用性, 扩展性征服世界.  但开发到一定阶段, 仅仅靠 PHP 是不够的, 此篇先从基本操作入手, 记录扩展开发过程.
+                    </p>
+
+                    <div class="post-footer">
+                        分类: <a class="class animation" href="/blog/posts/1">PHP</a>
+                    </div>
+                </div>
+                <div class="post animation">
+                    <a class="featured" title="推荐"></a>
+
+                    <h4 class="post-title">
+                        <a href="/blog/article/67" class="animation">Laravel 5 原理：服务容器、服务提供者、DI依赖注入</a>
+                    </h4>
+                    <p class="time">作者: Tony &nbsp; 2016.04.16</p>
+
+
+                    <img src="http://blog-10033541.file.myqcloud.com/userpics/la.jpg" alt="laravel.jpg">                        <p class="descript">
+                        有这样一种容器，它存放的是对象、对象的描述（类、接口）或者是提供对象的回调，通过这种容器，我们得以实现许多高级的功能，其中最常提到的，就是 “解耦” 、“依...
+                    </p>
+
+                    <div class="post-footer">
+                        分类: <a class="class animation" href="/blog/posts/1">PHP</a>
+                    </div>
+                </div>
+                <div class="post animation">
+                    <a class="featured" title="推荐"></a>
+
+                    <h4 class="post-title">
+                        <a href="/blog/article/65" class="animation">几部治愈系动画电影推荐(图)</a>
+                    </h4>
+                    <p class="time">作者: Tony &nbsp; 2016.04.08</p>
+
+
+                    <img src="http://blog-10033541.file.myqcloud.com/userpics/yhzs1.jpg" alt="">                        <p class="descript">
+                        看了几部‘唯美’的动画电影（只能这样形容了吧），感触还是比较深的。美好、期盼与现实都在里面，这便是所谓的命运吧。
+                    </p>
+
+                    <div class="post-footer">
+                        分类: <a class="class animation" href="/blog/posts/9">随笔</a>
+                    </div>
+                </div>
+                <div class="post animation">
+                    <a class="featured" title="推荐"></a>
+
+                    <h4 class="post-title">
+                        <a href="/blog/article/59" class="animation">纯PHP实现网页Linux终端实践</a>
+                    </h4>
+                    <p class="time">作者: Tony &nbsp; 2016.03.24</p>
+
+
+                    <img src="http://blog-10033541.file.myqcloud.com/userpics/linux.png" alt="demo">                        <p class="descript">
+                        囿于知识的积累，一直没有实现这个想法。这个功能还是挺有用的，接下来我将详细展开其说明和实现。
+                    </p>
+
+                    <div class="post-footer">
+                        分类: <a class="class animation" href="/blog/posts/1">PHP</a>
+                    </div>
+                </div>
+                <div class="post animation">
+                    <a class="featured" title="推荐"></a>
+
+                    <h4 class="post-title">
+                        <a href="/blog/article/48" class="animation">PHP服务器安全性初步总结</a>
+                    </h4>
+                    <p class="time">作者: Tony &nbsp; 2016.01.28</p>
+
+
+                    <p class="descript">
+                        安全，是个重要但是容易被忽视的问题。以前写过一个简易的论坛，自以为没问题，但还是被发现有 xss 漏洞和 SQL 注入漏洞。
+                    </p>
+
+                    <div class="post-footer">
+                        分类: <a class="class animation" href="/blog/posts/1">PHP</a>
+                    </div>
+                </div>
+
+                <div class="page-nav animation clearfix">
+                    <a class="page-num">第 1 页 / 共 2 页</a><a class="page-next animation" href="/blog/posts/0?page=2">下页 &gt;</a>
+                </div>
+
+            </div>
+
+            <div class="col-md-3 sidebar">
+                <div class="sidebar-content">
+                    <!-- start search area -->
+                    <form class="form-horizontal" role="form" action="/blog/search" method="GET">
+                        <input id="search" class="form-control" name="s" type="text" value="">
+                        <button type="submit" class="animation red-btn">搜 索</button>
+                    </form>
+
+                    <!-- start info area -->
+                    <div class="card">
+                        <div class="header"></div>
+                        <div class="avater">
+                            <img alt="avater" src="/public/pics/head.png">
+                        </div>
+                        <div class="content">
+                            <h3>Tony</h3>
+                            <ul class="status">
+                                <li><b>29</b><br>文章</li>
+                                <li><b>7</b><br>精选</li>
+                                <li><b>8</b><br>分类</li>
+                            </ul>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </div>
+
+                    <!-- start category area -->
+                    <h5>分类</h5>
+                    <ul class="nav nav-sidebar">
+                        <li class="active">
+                            <a href="/blog/posts/0">推荐<sup>7</sup></a>
+                        </li>
+                        <li class="">
+                            <a href="/blog/posts/1">PHP<sup>11</sup></a>
+                        </li>
+                        <li class="">
+                            <a href="/blog/posts/2">Linux<sup>7</sup></a>
+                        </li>
+                        <li class="">
+                            <a href="/blog/posts/3">SQL<sup>3</sup></a>
+                        </li>
+                        <li class="">
+                            <a href="/blog/posts/5">HTML / JS<sup>2</sup></a>
+                        </li>
+                        <li class="">
+                            <a href="/blog/posts/8">C / C++<sup>5</sup></a>
+                        </li>
+                        <li class="">
+                            <a href="/blog/posts/9">随笔<sup>1</sup></a>
+                        </li>
+                        <li class="">
+                            <a href="/blog/posts/10">摄影<sup>0</sup></a>
+                        </li>
+                        <li class="">
+                            <a href="/blog/posts/100">其他<sup>0</sup></a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

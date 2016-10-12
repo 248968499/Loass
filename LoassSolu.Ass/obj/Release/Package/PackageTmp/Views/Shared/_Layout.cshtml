@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Keywords" content="Tony Blog,Tony 博客,PHP,Linux,HTML,CSS,js">
+    <meta name="Description" content="Tony's Blog Tony的个人博客 分享互联网技术 记录生活">
+    <title>@ViewBag.Title</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/index.css" rel="stylesheet" />
+    <link href="~/Content/posts.css" rel="stylesheet" />
+</head>
+<body>
+    <!--[if lt IE 9]>
+    <h3 style="color:black;background: #FF5;margin: 0;padding:10px;position: fixed; z-index: 99;width: 100%" class="text-center">
+        此浏览器太旧，或处于兼容模式
+    </h3>
+    <![endif]-->
+    <noscript style="color:black;background: #FF5;margin: 0;padding:10px;position: fixed; z-index: 99;width: 100%" class="text-center">
+        必须启用javascript才能正确浏览
+    </noscript>
+    <div class="main-header">
+        <div id="blogTitle">
+            <h2>Tony博客</h2>
+            <h5>Love Coding, Enjoy Life!</h5>
+            <canvas id="bubbleCanvas" width="300" height="130">你的浏览器版本过低</canvas>
+        </div>
+        <div class="nav row">
+            <a class="animation" href="/">文章 | Articles</a>
+            <a class="animation" href="/home/timeline">时间轴 | Timeline</a>
+            <a class="animation" href="/home/about">简介 | About</a>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+       
+
+    </div>
+    <div class="main-footer">
+        <div class="container">
+            <div class="logo">
+                TONY BLOG
+            </div>
+            <p>
+                &nbsp; Tony's original blog.
+                <br>
+                「keep calm and carry on」
+            </p>
+        </div>
+
+        <h5 class="copyright text-center">
+            © 2016 Tony |&nbsp;  湘ICP备16001500号 &nbsp;|&nbsp;
+            <a href="/admin">管理</a>
+        </h5>
+    </div>
+    <script src="~/scripts/prism.js"></script>
+    <script src="~/scripts/bubble.js"></script>
+</body>
+</html>

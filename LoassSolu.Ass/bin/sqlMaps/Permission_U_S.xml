@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Permission_U_SEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].Permission_U_S 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="U_Id">U_Id</isNotEmpty>
+                        <isNotEmpty prepend="," property="S_Id">S_Id</isNotEmpty>
+                        <isNotEmpty prepend="," property="SU_Place">SU_Place</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="U_Id">#U_Id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="S_Id">#S_Id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="SU_Place">#SU_Place#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="SU_ID">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[Permission_U_S] 
+            <dynamic prepend="set">
+                            <isNotNull property="U_Id" prepend=",">U_Id=#U_Id#</isNotNull>
+                            <isNotNull property="S_Id" prepend=",">S_Id=#S_Id#</isNotNull>
+                            <isNotNull property="SU_Place" prepend=",">SU_Place=#SU_Place#</isNotNull>
+                            <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+             </dynamic>
+            where SU_ID = #SU_ID#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[Permission_U_S] 
+            WHERE SU_ID = #SU_ID#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="permission_U_SEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            SU_ID,U_Id,S_Id,SU_Place,IsDelState from Permission_U_S
+            <dynamic prepend="where">
+                       <isNotEmpty property="SU_ID" prepend="and">SU_ID=#SU_ID#</isNotEmpty>
+                       <isNotEmpty property="U_Id" prepend="and">U_Id=#U_Id#</isNotEmpty>
+                       <isNotEmpty property="S_Id" prepend="and">S_Id=#S_Id#</isNotEmpty>
+                       <isNotEmpty property="SU_Place" prepend="and">SU_Place=#SU_Place#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+            order by SU_ID desc
+		</select>
+
+
+    <select id="permission_u_s_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(SU_ID) from Permission_U_S
+            <dynamic prepend="where">
+                       <isNotEmpty property="SU_ID" prepend="and">SU_ID=#SU_ID#</isNotEmpty>
+                       <isNotEmpty property="U_Id" prepend="and">U_Id=#U_Id#</isNotEmpty>
+                       <isNotEmpty property="S_Id" prepend="and">S_Id=#S_Id#</isNotEmpty>
+                       <isNotEmpty property="SU_Place" prepend="and">SU_Place=#SU_Place#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="permission_u_s_list" listClass="list" resultClass="permission_U_SEntity" parameterClass="System.Collections.IDictionary">
+            with permission_u_s_list as
+            (
+            select  SU_ID,U_Id,S_Id,SU_Place,IsDelState,ROW_NUMBER() OVER (order by SU_ID desc) as pos from Permission_U_S
+            <dynamic prepend="where">
+                       <isNotEmpty property="SU_ID" prepend="and">SU_ID=#SU_ID#</isNotEmpty>
+                       <isNotEmpty property="U_Id" prepend="and">U_Id=#U_Id#</isNotEmpty>
+                       <isNotEmpty property="S_Id" prepend="and">S_Id=#S_Id#</isNotEmpty>
+                       <isNotEmpty property="SU_Place" prepend="and">SU_Place=#SU_Place#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+          )
+
+          select SU_ID,U_Id,S_Id,SU_Place,IsDelState from permission_u_s_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

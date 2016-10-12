@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="tb_Group_PowerEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].tb_Group_Power 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="group_id">group_id</isNotEmpty>
+                        <isNotEmpty prepend="," property="power_id">power_id</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="group_id">#group_id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="power_id">#power_id#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="group_id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[tb_Group_Power] 
+            <dynamic prepend="set">
+                            <isNotNull property="group_id" prepend=",">group_id=#group_id#</isNotNull>
+                            <isNotNull property="power_id" prepend=",">power_id=#power_id#</isNotNull>
+             </dynamic>
+            where group_id = #group_id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[tb_Group_Power] 
+            WHERE group_id = #group_id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="tb_Group_PowerEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            group_id,power_id from tb_Group_Power
+            <dynamic prepend="where">
+                       <isNotEmpty property="group_id" prepend="and">group_id=#group_id#</isNotEmpty>
+                       <isNotEmpty property="power_id" prepend="and">power_id=#power_id#</isNotEmpty>
+            </dynamic>
+            order by group_id desc
+		</select>
+
+
+    <select id="tb_group_power_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(group_id) from tb_Group_Power
+            <dynamic prepend="where">
+                       <isNotEmpty property="group_id" prepend="and">group_id=#group_id#</isNotEmpty>
+                       <isNotEmpty property="power_id" prepend="and">power_id=#power_id#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="tb_group_power_list" listClass="list" resultClass="tb_Group_PowerEntity" parameterClass="System.Collections.IDictionary">
+            with tb_group_power_list as
+            (
+            select  group_id,power_id,ROW_NUMBER() OVER (order by group_id desc) as pos from tb_Group_Power
+            <dynamic prepend="where">
+                       <isNotEmpty property="group_id" prepend="and">group_id=#group_id#</isNotEmpty>
+                       <isNotEmpty property="power_id" prepend="and">power_id=#power_id#</isNotEmpty>
+            </dynamic>
+          )
+
+          select group_id,power_id from tb_group_power_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

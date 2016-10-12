@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="EvaluateEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].Evaluate 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="O_ID">O_ID</isNotEmpty>
+                        <isNotEmpty prepend="," property="EL_O_Score">EL_O_Score</isNotEmpty>
+                        <isNotEmpty prepend="," property="EL_O_Levaluate">EL_O_Levaluate</isNotEmpty>
+                        <isNotEmpty prepend="," property="U_ID">U_ID</isNotEmpty>
+                        <isNotEmpty prepend="," property="EL_U_Score">EL_U_Score</isNotEmpty>
+                        <isNotEmpty prepend="," property="EL_U_Levaluate">EL_U_Levaluate</isNotEmpty>
+                        <isNotEmpty prepend="," property="EL_Message">EL_Message</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="O_ID">#O_ID#</isNotEmpty>
+                    <isNotEmpty prepend="," property="EL_O_Score">#EL_O_Score#</isNotEmpty>
+                    <isNotEmpty prepend="," property="EL_O_Levaluate">#EL_O_Levaluate#</isNotEmpty>
+                    <isNotEmpty prepend="," property="U_ID">#U_ID#</isNotEmpty>
+                    <isNotEmpty prepend="," property="EL_U_Score">#EL_U_Score#</isNotEmpty>
+                    <isNotEmpty prepend="," property="EL_U_Levaluate">#EL_U_Levaluate#</isNotEmpty>
+                    <isNotEmpty prepend="," property="EL_Message">#EL_Message#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="EL_ID">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[Evaluate] 
+            <dynamic prepend="set">
+                            <isNotNull property="O_ID" prepend=",">O_ID=#O_ID#</isNotNull>
+                            <isNotNull property="EL_O_Score" prepend=",">EL_O_Score=#EL_O_Score#</isNotNull>
+                            <isNotNull property="EL_O_Levaluate" prepend=",">EL_O_Levaluate=#EL_O_Levaluate#</isNotNull>
+                            <isNotNull property="U_ID" prepend=",">U_ID=#U_ID#</isNotNull>
+                            <isNotNull property="EL_U_Score" prepend=",">EL_U_Score=#EL_U_Score#</isNotNull>
+                            <isNotNull property="EL_U_Levaluate" prepend=",">EL_U_Levaluate=#EL_U_Levaluate#</isNotNull>
+                            <isNotNull property="EL_Message" prepend=",">EL_Message=#EL_Message#</isNotNull>
+             </dynamic>
+            where EL_ID = #EL_ID#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[Evaluate] 
+            WHERE EL_ID = #EL_ID#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="evaluateEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            EL_ID,O_ID,EL_O_Score,EL_O_Levaluate,U_ID,EL_U_Score,EL_U_Levaluate,EL_Message from Evaluate
+            <dynamic prepend="where">
+                       <isNotEmpty property="EL_ID" prepend="and">EL_ID=#EL_ID#</isNotEmpty>
+                       <isNotEmpty property="O_ID" prepend="and">O_ID=#O_ID#</isNotEmpty>
+                       <isNotEmpty property="EL_O_Score" prepend="and">EL_O_Score=#EL_O_Score#</isNotEmpty>
+                       <isNotEmpty property="EL_O_Levaluate" prepend="and">EL_O_Levaluate=#EL_O_Levaluate#</isNotEmpty>
+                       <isNotEmpty property="U_ID" prepend="and">U_ID=#U_ID#</isNotEmpty>
+                       <isNotEmpty property="EL_U_Score" prepend="and">EL_U_Score=#EL_U_Score#</isNotEmpty>
+                       <isNotEmpty property="EL_U_Levaluate" prepend="and">EL_U_Levaluate=#EL_U_Levaluate#</isNotEmpty>
+                       <isNotEmpty property="EL_Message" prepend="and">EL_Message=#EL_Message#</isNotEmpty>
+            </dynamic>
+            order by EL_ID desc
+		</select>
+
+
+    <select id="evaluate_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(EL_ID) from Evaluate
+            <dynamic prepend="where">
+                       <isNotEmpty property="EL_ID" prepend="and">EL_ID=#EL_ID#</isNotEmpty>
+                       <isNotEmpty property="O_ID" prepend="and">O_ID=#O_ID#</isNotEmpty>
+                       <isNotEmpty property="EL_O_Score" prepend="and">EL_O_Score=#EL_O_Score#</isNotEmpty>
+                       <isNotEmpty property="EL_O_Levaluate" prepend="and">EL_O_Levaluate=#EL_O_Levaluate#</isNotEmpty>
+                       <isNotEmpty property="U_ID" prepend="and">U_ID=#U_ID#</isNotEmpty>
+                       <isNotEmpty property="EL_U_Score" prepend="and">EL_U_Score=#EL_U_Score#</isNotEmpty>
+                       <isNotEmpty property="EL_U_Levaluate" prepend="and">EL_U_Levaluate=#EL_U_Levaluate#</isNotEmpty>
+                       <isNotEmpty property="EL_Message" prepend="and">EL_Message=#EL_Message#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="evaluate_list" listClass="list" resultClass="evaluateEntity" parameterClass="System.Collections.IDictionary">
+            with evaluate_list as
+            (
+            select  EL_ID,O_ID,EL_O_Score,EL_O_Levaluate,U_ID,EL_U_Score,EL_U_Levaluate,EL_Message,ROW_NUMBER() OVER (order by EL_ID desc) as pos from Evaluate
+            <dynamic prepend="where">
+                       <isNotEmpty property="EL_ID" prepend="and">EL_ID=#EL_ID#</isNotEmpty>
+                       <isNotEmpty property="O_ID" prepend="and">O_ID=#O_ID#</isNotEmpty>
+                       <isNotEmpty property="EL_O_Score" prepend="and">EL_O_Score=#EL_O_Score#</isNotEmpty>
+                       <isNotEmpty property="EL_O_Levaluate" prepend="and">EL_O_Levaluate=#EL_O_Levaluate#</isNotEmpty>
+                       <isNotEmpty property="U_ID" prepend="and">U_ID=#U_ID#</isNotEmpty>
+                       <isNotEmpty property="EL_U_Score" prepend="and">EL_U_Score=#EL_U_Score#</isNotEmpty>
+                       <isNotEmpty property="EL_U_Levaluate" prepend="and">EL_U_Levaluate=#EL_U_Levaluate#</isNotEmpty>
+                       <isNotEmpty property="EL_Message" prepend="and">EL_Message=#EL_Message#</isNotEmpty>
+            </dynamic>
+          )
+
+          select EL_ID,O_ID,EL_O_Score,EL_O_Levaluate,U_ID,EL_U_Score,EL_U_Levaluate,EL_Message from evaluate_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

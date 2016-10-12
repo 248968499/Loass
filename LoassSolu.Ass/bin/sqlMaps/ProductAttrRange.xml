@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProductAttrRangeEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].ProductAttrRange 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="PA_ID">PA_ID</isNotEmpty>
+                        <isNotEmpty prepend="," property="PAR_Min">PAR_Min</isNotEmpty>
+                        <isNotEmpty prepend="," property="PAR_Max">PAR_Max</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="PA_ID">#PA_ID#</isNotEmpty>
+                    <isNotEmpty prepend="," property="PAR_Min">#PAR_Min#</isNotEmpty>
+                    <isNotEmpty prepend="," property="PAR_Max">#PAR_Max#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="PAR_ID">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[ProductAttrRange] 
+            <dynamic prepend="set">
+                            <isNotNull property="PA_ID" prepend=",">PA_ID=#PA_ID#</isNotNull>
+                            <isNotNull property="PAR_Min" prepend=",">PAR_Min=#PAR_Min#</isNotNull>
+                            <isNotNull property="PAR_Max" prepend=",">PAR_Max=#PAR_Max#</isNotNull>
+             </dynamic>
+            where PAR_ID = #PAR_ID#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[ProductAttrRange] 
+            WHERE PAR_ID = #PAR_ID#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="productAttrRangeEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            PAR_ID,PA_ID,PAR_Min,PAR_Max from ProductAttrRange
+            <dynamic prepend="where">
+                       <isNotEmpty property="PAR_ID" prepend="and">PAR_ID=#PAR_ID#</isNotEmpty>
+                       <isNotEmpty property="PA_ID" prepend="and">PA_ID=#PA_ID#</isNotEmpty>
+                       <isNotEmpty property="PAR_Min" prepend="and">PAR_Min=#PAR_Min#</isNotEmpty>
+                       <isNotEmpty property="PAR_Max" prepend="and">PAR_Max=#PAR_Max#</isNotEmpty>
+            </dynamic>
+            order by PAR_ID desc
+		</select>
+
+
+    <select id="productattrrange_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(PAR_ID) from ProductAttrRange
+            <dynamic prepend="where">
+                       <isNotEmpty property="PAR_ID" prepend="and">PAR_ID=#PAR_ID#</isNotEmpty>
+                       <isNotEmpty property="PA_ID" prepend="and">PA_ID=#PA_ID#</isNotEmpty>
+                       <isNotEmpty property="PAR_Min" prepend="and">PAR_Min=#PAR_Min#</isNotEmpty>
+                       <isNotEmpty property="PAR_Max" prepend="and">PAR_Max=#PAR_Max#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="productattrrange_list" listClass="list" resultClass="productAttrRangeEntity" parameterClass="System.Collections.IDictionary">
+            with productattrrange_list as
+            (
+            select  PAR_ID,PA_ID,PAR_Min,PAR_Max,ROW_NUMBER() OVER (order by PAR_ID desc) as pos from ProductAttrRange
+            <dynamic prepend="where">
+                       <isNotEmpty property="PAR_ID" prepend="and">PAR_ID=#PAR_ID#</isNotEmpty>
+                       <isNotEmpty property="PA_ID" prepend="and">PA_ID=#PA_ID#</isNotEmpty>
+                       <isNotEmpty property="PAR_Min" prepend="and">PAR_Min=#PAR_Min#</isNotEmpty>
+                       <isNotEmpty property="PAR_Max" prepend="and">PAR_Max=#PAR_Max#</isNotEmpty>
+            </dynamic>
+          )
+
+          select PAR_ID,PA_ID,PAR_Min,PAR_Max from productattrrange_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

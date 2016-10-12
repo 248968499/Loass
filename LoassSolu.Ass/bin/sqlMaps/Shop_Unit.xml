@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Shop_UnitEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].Shop_Unit 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="SU_Id">SU_Id</isNotEmpty>
+                        <isNotEmpty prepend="," property="SU_Name">SU_Name</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="SU_Id">#SU_Id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="SU_Name">#SU_Name#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="SU_Id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[Shop_Unit] 
+            <dynamic prepend="set">
+                            <isNotNull property="SU_Id" prepend=",">SU_Id=#SU_Id#</isNotNull>
+                            <isNotNull property="SU_Name" prepend=",">SU_Name=#SU_Name#</isNotNull>
+                            <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+             </dynamic>
+            where SU_Id = #SU_Id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[Shop_Unit] 
+            WHERE SU_Id = #SU_Id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="shop_UnitEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            SU_Id,SU_Name,IsDelState from Shop_Unit
+            <dynamic prepend="where">
+                       <isNotEmpty property="SU_Id" prepend="and">SU_Id=#SU_Id#</isNotEmpty>
+                       <isNotEmpty property="SU_Name" prepend="and">SU_Name=#SU_Name#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+            order by SU_Id desc
+		</select>
+
+
+    <select id="shop_unit_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(SU_Id) from Shop_Unit
+            <dynamic prepend="where">
+                       <isNotEmpty property="SU_Id" prepend="and">SU_Id=#SU_Id#</isNotEmpty>
+                       <isNotEmpty property="SU_Name" prepend="and">SU_Name=#SU_Name#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="shop_unit_list" listClass="list" resultClass="shop_UnitEntity" parameterClass="System.Collections.IDictionary">
+            with shop_unit_list as
+            (
+            select  SU_Id,SU_Name,IsDelState,ROW_NUMBER() OVER (order by SU_Id desc) as pos from Shop_Unit
+            <dynamic prepend="where">
+                       <isNotEmpty property="SU_Id" prepend="and">SU_Id=#SU_Id#</isNotEmpty>
+                       <isNotEmpty property="SU_Name" prepend="and">SU_Name=#SU_Name#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+          )
+
+          select SU_Id,SU_Name,IsDelState from shop_unit_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

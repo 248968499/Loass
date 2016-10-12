@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoassSolu.Ass", "LoassSolu.Ass\LoassSolu.Ass.csproj", "{15DC1D16-873A-4803-A279-A3DA9ED0FF54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loass.Framework", "Loass.Framework\Loass.Framework.csproj", "{0BBB82E1-C603-447A-8B07-4BBC6A117570}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoassSolu.Common", "LoassSolu.Common\LoassSolu.Common.csproj", "{D78D7FF1-6E1A-4604-A8CD-3883C1D61FAB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15DC1D16-873A-4803-A279-A3DA9ED0FF54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15DC1D16-873A-4803-A279-A3DA9ED0FF54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15DC1D16-873A-4803-A279-A3DA9ED0FF54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15DC1D16-873A-4803-A279-A3DA9ED0FF54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BBB82E1-C603-447A-8B07-4BBC6A117570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BBB82E1-C603-447A-8B07-4BBC6A117570}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BBB82E1-C603-447A-8B07-4BBC6A117570}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BBB82E1-C603-447A-8B07-4BBC6A117570}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D78D7FF1-6E1A-4604-A8CD-3883C1D61FAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D78D7FF1-6E1A-4604-A8CD-3883C1D61FAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D78D7FF1-6E1A-4604-A8CD-3883C1D61FAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D78D7FF1-6E1A-4604-A8CD-3883C1D61FAB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

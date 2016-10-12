@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="tb_ArticleEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].tb_Article 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="article_name">article_name</isNotEmpty>
+                        <isNotEmpty prepend="," property="article_time">article_time</isNotEmpty>
+                        <isNotEmpty prepend="," property="article_ip">article_ip</isNotEmpty>
+                        <isNotEmpty prepend="," property="article_click">article_click</isNotEmpty>
+                        <isNotEmpty prepend="," property="sort_article_id">sort_article_id</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_id">user_id</isNotEmpty>
+                        <isNotEmpty prepend="," property="type_id">type_id</isNotEmpty>
+                        <isNotEmpty prepend="," property="article_type">article_type</isNotEmpty>
+                        <isNotEmpty prepend="," property="article_content">article_content</isNotEmpty>
+                        <isNotEmpty prepend="," property="article_up">article_up</isNotEmpty>
+                        <isNotEmpty prepend="," property="article_support">article_support</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="article_name">#article_name#</isNotEmpty>
+                    <isNotEmpty prepend="," property="article_time">#article_time#</isNotEmpty>
+                    <isNotEmpty prepend="," property="article_ip">#article_ip#</isNotEmpty>
+                    <isNotEmpty prepend="," property="article_click">#article_click#</isNotEmpty>
+                    <isNotEmpty prepend="," property="sort_article_id">#sort_article_id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_id">#user_id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="type_id">#type_id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="article_type">#article_type#</isNotEmpty>
+                    <isNotEmpty prepend="," property="article_content">#article_content#</isNotEmpty>
+                    <isNotEmpty prepend="," property="article_up">#article_up#</isNotEmpty>
+                    <isNotEmpty prepend="," property="article_support">#article_support#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="article_id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[tb_Article] 
+            <dynamic prepend="set">
+                            <isNotNull property="article_name" prepend=",">article_name=#article_name#</isNotNull>
+                            <isNotNull property="article_time" prepend=",">article_time=#article_time#</isNotNull>
+                            <isNotNull property="article_ip" prepend=",">article_ip=#article_ip#</isNotNull>
+                            <isNotNull property="article_click" prepend=",">article_click=#article_click#</isNotNull>
+                            <isNotNull property="sort_article_id" prepend=",">sort_article_id=#sort_article_id#</isNotNull>
+                            <isNotNull property="user_id" prepend=",">user_id=#user_id#</isNotNull>
+                            <isNotNull property="type_id" prepend=",">type_id=#type_id#</isNotNull>
+                            <isNotNull property="article_type" prepend=",">article_type=#article_type#</isNotNull>
+                            <isNotNull property="article_content" prepend=",">article_content=#article_content#</isNotNull>
+                            <isNotNull property="article_up" prepend=",">article_up=#article_up#</isNotNull>
+                            <isNotNull property="article_support" prepend=",">article_support=#article_support#</isNotNull>
+             </dynamic>
+            where article_id = #article_id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[tb_Article] 
+            WHERE article_id = #article_id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="tb_ArticleEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            article_id,article_name,article_time,article_ip,article_click,sort_article_id,user_id,type_id,article_type,article_content,article_up,article_support from tb_Article
+            <dynamic prepend="where">
+                       <isNotEmpty property="article_id" prepend="and">article_id=#article_id#</isNotEmpty>
+                       <isNotEmpty property="article_name" prepend="and">article_name=#article_name#</isNotEmpty>
+                       <isNotEmpty property="article_time" prepend="and">article_time=#article_time#</isNotEmpty>
+                       <isNotEmpty property="article_ip" prepend="and">article_ip=#article_ip#</isNotEmpty>
+                       <isNotEmpty property="article_click" prepend="and">article_click=#article_click#</isNotEmpty>
+                       <isNotEmpty property="sort_article_id" prepend="and">sort_article_id=#sort_article_id#</isNotEmpty>
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+                       <isNotEmpty property="type_id" prepend="and">type_id=#type_id#</isNotEmpty>
+                       <isNotEmpty property="article_type" prepend="and">article_type=#article_type#</isNotEmpty>
+                       <isNotEmpty property="article_content" prepend="and">article_content=#article_content#</isNotEmpty>
+                       <isNotEmpty property="article_up" prepend="and">article_up=#article_up#</isNotEmpty>
+                       <isNotEmpty property="article_support" prepend="and">article_support=#article_support#</isNotEmpty>
+            </dynamic>
+            order by article_id desc
+		</select>
+
+
+    <select id="tb_article_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(article_id) from tb_Article
+            <dynamic prepend="where">
+                       <isNotEmpty property="article_id" prepend="and">article_id=#article_id#</isNotEmpty>
+                       <isNotEmpty property="article_name" prepend="and">article_name=#article_name#</isNotEmpty>
+                       <isNotEmpty property="article_time" prepend="and">article_time=#article_time#</isNotEmpty>
+                       <isNotEmpty property="article_ip" prepend="and">article_ip=#article_ip#</isNotEmpty>
+                       <isNotEmpty property="article_click" prepend="and">article_click=#article_click#</isNotEmpty>
+                       <isNotEmpty property="sort_article_id" prepend="and">sort_article_id=#sort_article_id#</isNotEmpty>
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+                       <isNotEmpty property="type_id" prepend="and">type_id=#type_id#</isNotEmpty>
+                       <isNotEmpty property="article_type" prepend="and">article_type=#article_type#</isNotEmpty>
+                       <isNotEmpty property="article_content" prepend="and">article_content=#article_content#</isNotEmpty>
+                       <isNotEmpty property="article_up" prepend="and">article_up=#article_up#</isNotEmpty>
+                       <isNotEmpty property="article_support" prepend="and">article_support=#article_support#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="tb_article_list" listClass="list" resultClass="tb_ArticleEntity" parameterClass="System.Collections.IDictionary">
+            with tb_article_list as
+            (
+            select  article_id,article_name,article_time,article_ip,article_click,sort_article_id,user_id,type_id,article_type,article_content,article_up,article_support,ROW_NUMBER() OVER (order by article_id desc) as pos from tb_Article
+            <dynamic prepend="where">
+                       <isNotEmpty property="article_id" prepend="and">article_id=#article_id#</isNotEmpty>
+                       <isNotEmpty property="article_name" prepend="and">article_name=#article_name#</isNotEmpty>
+                       <isNotEmpty property="article_time" prepend="and">article_time=#article_time#</isNotEmpty>
+                       <isNotEmpty property="article_ip" prepend="and">article_ip=#article_ip#</isNotEmpty>
+                       <isNotEmpty property="article_click" prepend="and">article_click=#article_click#</isNotEmpty>
+                       <isNotEmpty property="sort_article_id" prepend="and">sort_article_id=#sort_article_id#</isNotEmpty>
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+                       <isNotEmpty property="type_id" prepend="and">type_id=#type_id#</isNotEmpty>
+                       <isNotEmpty property="article_type" prepend="and">article_type=#article_type#</isNotEmpty>
+                       <isNotEmpty property="article_content" prepend="and">article_content=#article_content#</isNotEmpty>
+                       <isNotEmpty property="article_up" prepend="and">article_up=#article_up#</isNotEmpty>
+                       <isNotEmpty property="article_support" prepend="and">article_support=#article_support#</isNotEmpty>
+            </dynamic>
+          )
+
+          select article_id,article_name,article_time,article_ip,article_click,sort_article_id,user_id,type_id,article_type,article_content,article_up,article_support from tb_article_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

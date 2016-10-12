@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+
+<meta charset="utf-8">
+<title>登录</title>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/index.css" rel="stylesheet" />
+<link href="~/Content/posts.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/scripts/bootstrap.min.js"></script>
+<style>
+    /*.col-center-bloc5k {
+        margin-top: 100px;
+        float: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }*/
+    @@media only screen and (min-width: 768px) {
+        .row {
+            margin-right: 15%;
+            margin-left: 15%;
+        }
+    }
+
+    @@media only screen and (max-width: 991px) {
+        .row {
+            margin-right: 5%;
+            margin-left: 5%;
+        }
+
+        #left {
+            display: none;
+        }
+    }
+
+    @@media only screen and (max-width: 350px) {
+        .row {
+            margin-right: 1%;
+            margin-left: 1%;
+            width: 100%;
+        }
+    }
+
+    .input-group {
+        margin: 15px 0px; /*输入框上下外边距为10px,左右为0px*/
+    }
+
+    h3 {
+        padding: 5px;
+        border-bottom: 1px solid #ddd; /*h3字体下边框*/
+    }
+
+    li {
+        list-style-type: square; /*列表项图标为小正方形*/
+        margin: 10px 0; /*上下外边距是10px*/
+    }
+
+    em { /*强调的样式*/
+        color: #c7254e;
+        font-style: inherit;
+        background-color: #f9f2f4;
+    }
+
+    .form-control {
+        height: 45px;
+    }
+</style>
+<div class="main-header">
+    <div id="blogTitle">
+        <h2>Loass博客</h2>
+        <h5>Love Coding, Enjoy Life!</h5>
+        <canvas id="bubbleCanvas" width="300" height="130">你的浏览器版本过低</canvas>
+    </div>
+    <div class="nav row">
+    </div>
+</div>
+<div class="row" style="margin-top:5%; ">
+    <div class="col-md-6" id="left">
+        <h3>
+            欢迎使用学生作业管理系统
+        </h3><h3>
+            欢迎使用学生作业管理系统
+        </h3><h3>
+            欢迎使用学生作业管理系统
+        </h3>
+        <h3>
+            欢迎使用学生作业管理系统
+        </h3>
+
+    </div>
+    <script>
+        $(function () {
+            var info = "@ViewBag.LoginState";
+            if (info != null && info != "") {
+                $("#warn").css("display", "block");
+            } else {
+                $("#warn").css("display", "none");
+            }
+        });
+
+        // setTimeout(function () { $("#warning").modal("hide") }, 2000);
+    </script>
+    <div class="col-md-6" style="border-right:1px solid #ddd;">
+        @using (Html.BeginForm("login", "Account", FormMethod.Post, new { id = "login" }))
+        {
+            <div class="well col-md-10">
+                <h3>用户登录</h3>
+                <div id="warn" class="alert alert-dismissable alert-warning" style="display:none;">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <strong>@ViewBag.LoginState</strong>
+                </div>
+
+                <div class="input-group input-group-md">
+                    <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" placeholder="用户名" aria-describedby="sizing-addon1" id="inputUserName" name="inputUserName">
+                </div>
+                <div class="input-group input-group-md">
+                    <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input type="password" class="form-control" placeholder="密码" aria-describedby="sizing-addon1" id="inputUserPwd" name="inputUserPwd">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me" id="state" name="state">
+                        记住密码
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                    登录
+                </button><br />
+                &nbsp;&nbsp;&nbsp;  没有账号？<a href="/Account/Register" class="alert-link">
+                    立即注册
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+
+        </div>
+    </div>
+</div>

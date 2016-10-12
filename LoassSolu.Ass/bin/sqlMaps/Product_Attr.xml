@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Product_AttrEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].Product_Attr 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="PA_Name">PA_Name</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="PA_Name">#PA_Name#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="PA_Id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[Product_Attr] 
+            <dynamic prepend="set">
+                            <isNotNull property="PA_Name" prepend=",">PA_Name=#PA_Name#</isNotNull>
+                            <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+             </dynamic>
+            where PA_Id = #PA_Id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[Product_Attr] 
+            WHERE PA_Id = #PA_Id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="product_AttrEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            PA_Id,PA_Name,IsDelState from Product_Attr
+            <dynamic prepend="where">
+                       <isNotEmpty property="PA_Id" prepend="and">PA_Id=#PA_Id#</isNotEmpty>
+                       <isNotEmpty property="PA_Name" prepend="and">PA_Name=#PA_Name#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+            order by PA_Id desc
+		</select>
+
+
+    <select id="product_attr_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(PA_Id) from Product_Attr
+            <dynamic prepend="where">
+                       <isNotEmpty property="PA_Id" prepend="and">PA_Id=#PA_Id#</isNotEmpty>
+                       <isNotEmpty property="PA_Name" prepend="and">PA_Name=#PA_Name#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="product_attr_list" listClass="list" resultClass="product_AttrEntity" parameterClass="System.Collections.IDictionary">
+            with product_attr_list as
+            (
+            select  PA_Id,PA_Name,IsDelState,ROW_NUMBER() OVER (order by PA_Id desc) as pos from Product_Attr
+            <dynamic prepend="where">
+                       <isNotEmpty property="PA_Id" prepend="and">PA_Id=#PA_Id#</isNotEmpty>
+                       <isNotEmpty property="PA_Name" prepend="and">PA_Name=#PA_Name#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+          )
+
+          select PA_Id,PA_Name,IsDelState from product_attr_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

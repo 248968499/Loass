@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CouponEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].Coupon 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="C_UsrNum">C_UsrNum</isNotEmpty>
+                        <isNotEmpty prepend="," property="C_Identify">C_Identify</isNotEmpty>
+                        <isNotEmpty prepend="," property="C_Discount">C_Discount</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="C_UsrNum">#C_UsrNum#</isNotEmpty>
+                    <isNotEmpty prepend="," property="C_Identify">#C_Identify#</isNotEmpty>
+                    <isNotEmpty prepend="," property="C_Discount">#C_Discount#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="C_ID">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[Coupon] 
+            <dynamic prepend="set">
+                            <isNotNull property="C_UsrNum" prepend=",">C_UsrNum=#C_UsrNum#</isNotNull>
+                            <isNotNull property="C_Identify" prepend=",">C_Identify=#C_Identify#</isNotNull>
+                            <isNotNull property="C_Discount" prepend=",">C_Discount=#C_Discount#</isNotNull>
+                            <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+             </dynamic>
+            where C_ID = #C_ID#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[Coupon] 
+            WHERE C_ID = #C_ID#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="couponEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            C_ID,C_UsrNum,C_Identify,C_Discount,IsDelState from Coupon
+            <dynamic prepend="where">
+                       <isNotEmpty property="C_ID" prepend="and">C_ID=#C_ID#</isNotEmpty>
+                       <isNotEmpty property="C_UsrNum" prepend="and">C_UsrNum=#C_UsrNum#</isNotEmpty>
+                       <isNotEmpty property="C_Identify" prepend="and">C_Identify=#C_Identify#</isNotEmpty>
+                       <isNotEmpty property="C_Discount" prepend="and">C_Discount=#C_Discount#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+            order by C_ID desc
+		</select>
+
+
+    <select id="coupon_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(C_ID) from Coupon
+            <dynamic prepend="where">
+                       <isNotEmpty property="C_ID" prepend="and">C_ID=#C_ID#</isNotEmpty>
+                       <isNotEmpty property="C_UsrNum" prepend="and">C_UsrNum=#C_UsrNum#</isNotEmpty>
+                       <isNotEmpty property="C_Identify" prepend="and">C_Identify=#C_Identify#</isNotEmpty>
+                       <isNotEmpty property="C_Discount" prepend="and">C_Discount=#C_Discount#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="coupon_list" listClass="list" resultClass="couponEntity" parameterClass="System.Collections.IDictionary">
+            with coupon_list as
+            (
+            select  C_ID,C_UsrNum,C_Identify,C_Discount,IsDelState,ROW_NUMBER() OVER (order by C_ID desc) as pos from Coupon
+            <dynamic prepend="where">
+                       <isNotEmpty property="C_ID" prepend="and">C_ID=#C_ID#</isNotEmpty>
+                       <isNotEmpty property="C_UsrNum" prepend="and">C_UsrNum=#C_UsrNum#</isNotEmpty>
+                       <isNotEmpty property="C_Identify" prepend="and">C_Identify=#C_Identify#</isNotEmpty>
+                       <isNotEmpty property="C_Discount" prepend="and">C_Discount=#C_Discount#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+          )
+
+          select C_ID,C_UsrNum,C_Identify,C_Discount,IsDelState from coupon_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

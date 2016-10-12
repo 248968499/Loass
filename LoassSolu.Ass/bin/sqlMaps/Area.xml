@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AreaEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].Area 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="AR_Name">AR_Name</isNotEmpty>
+                        <isNotEmpty prepend="," property="ParentID">ParentID</isNotEmpty>
+                        <isNotEmpty prepend="," property="AR_Level">AR_Level</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="AR_Name">#AR_Name#</isNotEmpty>
+                    <isNotEmpty prepend="," property="ParentID">#ParentID#</isNotEmpty>
+                    <isNotEmpty prepend="," property="AR_Level">#AR_Level#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="AR_Id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[Area] 
+            <dynamic prepend="set">
+                            <isNotNull property="AR_Name" prepend=",">AR_Name=#AR_Name#</isNotNull>
+                            <isNotNull property="ParentID" prepend=",">ParentID=#ParentID#</isNotNull>
+                            <isNotNull property="AR_Level" prepend=",">AR_Level=#AR_Level#</isNotNull>
+                            <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+             </dynamic>
+            where AR_Id = #AR_Id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[Area] 
+            WHERE AR_Id = #AR_Id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="areaEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            AR_Id,AR_Name,ParentID,AR_Level,IsDelState from Area
+            <dynamic prepend="where">
+                       <isNotEmpty property="AR_Id" prepend="and">AR_Id=#AR_Id#</isNotEmpty>
+                       <isNotEmpty property="AR_Name" prepend="and">AR_Name=#AR_Name#</isNotEmpty>
+                       <isNotEmpty property="ParentID" prepend="and">ParentID=#ParentID#</isNotEmpty>
+                       <isNotEmpty property="AR_Level" prepend="and">AR_Level=#AR_Level#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+            order by AR_Id desc
+		</select>
+
+
+    <select id="area_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(AR_Id) from Area
+            <dynamic prepend="where">
+                       <isNotEmpty property="AR_Id" prepend="and">AR_Id=#AR_Id#</isNotEmpty>
+                       <isNotEmpty property="AR_Name" prepend="and">AR_Name=#AR_Name#</isNotEmpty>
+                       <isNotEmpty property="ParentID" prepend="and">ParentID=#ParentID#</isNotEmpty>
+                       <isNotEmpty property="AR_Level" prepend="and">AR_Level=#AR_Level#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="area_list" listClass="list" resultClass="areaEntity" parameterClass="System.Collections.IDictionary">
+            with area_list as
+            (
+            select  AR_Id,AR_Name,ParentID,AR_Level,IsDelState,ROW_NUMBER() OVER (order by AR_Id desc) as pos from Area
+            <dynamic prepend="where">
+                       <isNotEmpty property="AR_Id" prepend="and">AR_Id=#AR_Id#</isNotEmpty>
+                       <isNotEmpty property="AR_Name" prepend="and">AR_Name=#AR_Name#</isNotEmpty>
+                       <isNotEmpty property="ParentID" prepend="and">ParentID=#ParentID#</isNotEmpty>
+                       <isNotEmpty property="AR_Level" prepend="and">AR_Level=#AR_Level#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+          )
+
+          select AR_Id,AR_Name,ParentID,AR_Level,IsDelState from area_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

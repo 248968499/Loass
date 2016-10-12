@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="SRAddressEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].SRAddress 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="U_ID">U_ID</isNotEmpty>
+                        <isNotEmpty prepend="," property="SR_AddDetails">SR_AddDetails</isNotEmpty>
+                        <isNotEmpty prepend="," property="A_ID">A_ID</isNotEmpty>
+                        <isNotEmpty prepend="," property="SRU_ID">SRU_ID</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="U_ID">#U_ID#</isNotEmpty>
+                    <isNotEmpty prepend="," property="SR_AddDetails">#SR_AddDetails#</isNotEmpty>
+                    <isNotEmpty prepend="," property="A_ID">#A_ID#</isNotEmpty>
+                    <isNotEmpty prepend="," property="SRU_ID">#SRU_ID#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="SR_ID">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[SRAddress] 
+            <dynamic prepend="set">
+                            <isNotNull property="U_ID" prepend=",">U_ID=#U_ID#</isNotNull>
+                            <isNotNull property="SR_AddDetails" prepend=",">SR_AddDetails=#SR_AddDetails#</isNotNull>
+                            <isNotNull property="A_ID" prepend=",">A_ID=#A_ID#</isNotNull>
+                            <isNotNull property="SRU_ID" prepend=",">SRU_ID=#SRU_ID#</isNotNull>
+                            <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+             </dynamic>
+            where SR_ID = #SR_ID#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[SRAddress] 
+            WHERE SR_ID = #SR_ID#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="sRAddressEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            SR_ID,U_ID,SR_AddDetails,A_ID,SRU_ID,IsDelState from SRAddress
+            <dynamic prepend="where">
+                       <isNotEmpty property="SR_ID" prepend="and">SR_ID=#SR_ID#</isNotEmpty>
+                       <isNotEmpty property="U_ID" prepend="and">U_ID=#U_ID#</isNotEmpty>
+                       <isNotEmpty property="SR_AddDetails" prepend="and">SR_AddDetails=#SR_AddDetails#</isNotEmpty>
+                       <isNotEmpty property="A_ID" prepend="and">A_ID=#A_ID#</isNotEmpty>
+                       <isNotEmpty property="SRU_ID" prepend="and">SRU_ID=#SRU_ID#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+            order by SR_ID desc
+		</select>
+
+
+    <select id="sraddress_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(SR_ID) from SRAddress
+            <dynamic prepend="where">
+                       <isNotEmpty property="SR_ID" prepend="and">SR_ID=#SR_ID#</isNotEmpty>
+                       <isNotEmpty property="U_ID" prepend="and">U_ID=#U_ID#</isNotEmpty>
+                       <isNotEmpty property="SR_AddDetails" prepend="and">SR_AddDetails=#SR_AddDetails#</isNotEmpty>
+                       <isNotEmpty property="A_ID" prepend="and">A_ID=#A_ID#</isNotEmpty>
+                       <isNotEmpty property="SRU_ID" prepend="and">SRU_ID=#SRU_ID#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="sraddress_list" listClass="list" resultClass="sRAddressEntity" parameterClass="System.Collections.IDictionary">
+            with sraddress_list as
+            (
+            select  SR_ID,U_ID,SR_AddDetails,A_ID,SRU_ID,IsDelState,ROW_NUMBER() OVER (order by SR_ID desc) as pos from SRAddress
+            <dynamic prepend="where">
+                       <isNotEmpty property="SR_ID" prepend="and">SR_ID=#SR_ID#</isNotEmpty>
+                       <isNotEmpty property="U_ID" prepend="and">U_ID=#U_ID#</isNotEmpty>
+                       <isNotEmpty property="SR_AddDetails" prepend="and">SR_AddDetails=#SR_AddDetails#</isNotEmpty>
+                       <isNotEmpty property="A_ID" prepend="and">A_ID=#A_ID#</isNotEmpty>
+                       <isNotEmpty property="SRU_ID" prepend="and">SRU_ID=#SRU_ID#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+          )
+
+          select SR_ID,U_ID,SR_AddDetails,A_ID,SRU_ID,IsDelState from sraddress_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

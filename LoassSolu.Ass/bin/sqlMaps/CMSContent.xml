@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CMSContentEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].CMSContent 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="CMC_Id">CMC_Id</isNotEmpty>
+                        <isNotEmpty prepend="," property="U_Id">U_Id</isNotEmpty>
+                        <isNotEmpty prepend="," property="CMT_IssueTime">CMT_IssueTime</isNotEmpty>
+                        <isNotEmpty prepend="," property="CMT_Title">CMT_Title</isNotEmpty>
+                        <isNotEmpty prepend="," property="CMT_ImageUrl">CMT_ImageUrl</isNotEmpty>
+                        <isNotEmpty prepend="," property="CMT_RedirectUrl">CMT_RedirectUrl</isNotEmpty>
+                        <isNotEmpty prepend="," property="CMT_Content">CMT_Content</isNotEmpty>
+                        <isNotEmpty prepend="," property="CMT_Status">CMT_Status</isNotEmpty>
+                        <isNotEmpty prepend="," property="CMT_CreateTime">CMT_CreateTime</isNotEmpty>
+                        <isNotEmpty prepend="," property="CMT_IsRecomm">CMT_IsRecomm</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="CMC_Id">#CMC_Id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="U_Id">#U_Id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="CMT_IssueTime">#CMT_IssueTime#</isNotEmpty>
+                    <isNotEmpty prepend="," property="CMT_Title">#CMT_Title#</isNotEmpty>
+                    <isNotEmpty prepend="," property="CMT_ImageUrl">#CMT_ImageUrl#</isNotEmpty>
+                    <isNotEmpty prepend="," property="CMT_RedirectUrl">#CMT_RedirectUrl#</isNotEmpty>
+                    <isNotEmpty prepend="," property="CMT_Content">#CMT_Content#</isNotEmpty>
+                    <isNotEmpty prepend="," property="CMT_Status">#CMT_Status#</isNotEmpty>
+                    <isNotEmpty prepend="," property="CMT_CreateTime">#CMT_CreateTime#</isNotEmpty>
+                    <isNotEmpty prepend="," property="CMT_IsRecomm">#CMT_IsRecomm#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="CMT_ID">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[CMSContent] 
+            <dynamic prepend="set">
+                            <isNotNull property="CMC_Id" prepend=",">CMC_Id=#CMC_Id#</isNotNull>
+                            <isNotNull property="U_Id" prepend=",">U_Id=#U_Id#</isNotNull>
+                            <isNotNull property="CMT_IssueTime" prepend=",">CMT_IssueTime=#CMT_IssueTime#</isNotNull>
+                            <isNotNull property="CMT_Title" prepend=",">CMT_Title=#CMT_Title#</isNotNull>
+                            <isNotNull property="CMT_ImageUrl" prepend=",">CMT_ImageUrl=#CMT_ImageUrl#</isNotNull>
+                            <isNotNull property="CMT_RedirectUrl" prepend=",">CMT_RedirectUrl=#CMT_RedirectUrl#</isNotNull>
+                            <isNotNull property="CMT_Content" prepend=",">CMT_Content=#CMT_Content#</isNotNull>
+                            <isNotNull property="CMT_Status" prepend=",">CMT_Status=#CMT_Status#</isNotNull>
+                            <isNotNull property="CMT_CreateTime" prepend=",">CMT_CreateTime=#CMT_CreateTime#</isNotNull>
+                            <isNotNull property="CMT_IsRecomm" prepend=",">CMT_IsRecomm=#CMT_IsRecomm#</isNotNull>
+                            <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+             </dynamic>
+            where CMT_ID = #CMT_ID#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[CMSContent] 
+            WHERE CMT_ID = #CMT_ID#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="cMSContentEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            CMT_ID,CMC_Id,U_Id,CMT_IssueTime,CMT_Title,CMT_ImageUrl,CMT_RedirectUrl,CMT_Content,CMT_Status,CMT_CreateTime,CMT_IsRecomm,IsDelState from CMSContent
+            <dynamic prepend="where">
+                       <isNotEmpty property="CMT_ID" prepend="and">CMT_ID=#CMT_ID#</isNotEmpty>
+                       <isNotEmpty property="CMC_Id" prepend="and">CMC_Id=#CMC_Id#</isNotEmpty>
+                       <isNotEmpty property="U_Id" prepend="and">U_Id=#U_Id#</isNotEmpty>
+                       <isNotEmpty property="CMT_IssueTime" prepend="and">CMT_IssueTime=#CMT_IssueTime#</isNotEmpty>
+                       <isNotEmpty property="CMT_Title" prepend="and">CMT_Title=#CMT_Title#</isNotEmpty>
+                       <isNotEmpty property="CMT_ImageUrl" prepend="and">CMT_ImageUrl=#CMT_ImageUrl#</isNotEmpty>
+                       <isNotEmpty property="CMT_RedirectUrl" prepend="and">CMT_RedirectUrl=#CMT_RedirectUrl#</isNotEmpty>
+                       <isNotEmpty property="CMT_Content" prepend="and">CMT_Content=#CMT_Content#</isNotEmpty>
+                       <isNotEmpty property="CMT_Status" prepend="and">CMT_Status=#CMT_Status#</isNotEmpty>
+                       <isNotEmpty property="CMT_CreateTime" prepend="and">CMT_CreateTime=#CMT_CreateTime#</isNotEmpty>
+                       <isNotEmpty property="CMT_IsRecomm" prepend="and">CMT_IsRecomm=#CMT_IsRecomm#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+            order by CMT_ID desc
+		</select>
+
+
+    <select id="cmscontent_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(CMT_ID) from CMSContent
+            <dynamic prepend="where">
+                       <isNotEmpty property="CMT_ID" prepend="and">CMT_ID=#CMT_ID#</isNotEmpty>
+                       <isNotEmpty property="CMC_Id" prepend="and">CMC_Id=#CMC_Id#</isNotEmpty>
+                       <isNotEmpty property="U_Id" prepend="and">U_Id=#U_Id#</isNotEmpty>
+                       <isNotEmpty property="CMT_IssueTime" prepend="and">CMT_IssueTime=#CMT_IssueTime#</isNotEmpty>
+                       <isNotEmpty property="CMT_Title" prepend="and">CMT_Title=#CMT_Title#</isNotEmpty>
+                       <isNotEmpty property="CMT_ImageUrl" prepend="and">CMT_ImageUrl=#CMT_ImageUrl#</isNotEmpty>
+                       <isNotEmpty property="CMT_RedirectUrl" prepend="and">CMT_RedirectUrl=#CMT_RedirectUrl#</isNotEmpty>
+                       <isNotEmpty property="CMT_Content" prepend="and">CMT_Content=#CMT_Content#</isNotEmpty>
+                       <isNotEmpty property="CMT_Status" prepend="and">CMT_Status=#CMT_Status#</isNotEmpty>
+                       <isNotEmpty property="CMT_CreateTime" prepend="and">CMT_CreateTime=#CMT_CreateTime#</isNotEmpty>
+                       <isNotEmpty property="CMT_IsRecomm" prepend="and">CMT_IsRecomm=#CMT_IsRecomm#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="cmscontent_list" listClass="list" resultClass="cMSContentEntity" parameterClass="System.Collections.IDictionary">
+            with cmscontent_list as
+            (
+            select  CMT_ID,CMC_Id,U_Id,CMT_IssueTime,CMT_Title,CMT_ImageUrl,CMT_RedirectUrl,CMT_Content,CMT_Status,CMT_CreateTime,CMT_IsRecomm,IsDelState,ROW_NUMBER() OVER (order by CMT_ID desc) as pos from CMSContent
+            <dynamic prepend="where">
+                       <isNotEmpty property="CMT_ID" prepend="and">CMT_ID=#CMT_ID#</isNotEmpty>
+                       <isNotEmpty property="CMC_Id" prepend="and">CMC_Id=#CMC_Id#</isNotEmpty>
+                       <isNotEmpty property="U_Id" prepend="and">U_Id=#U_Id#</isNotEmpty>
+                       <isNotEmpty property="CMT_IssueTime" prepend="and">CMT_IssueTime=#CMT_IssueTime#</isNotEmpty>
+                       <isNotEmpty property="CMT_Title" prepend="and">CMT_Title=#CMT_Title#</isNotEmpty>
+                       <isNotEmpty property="CMT_ImageUrl" prepend="and">CMT_ImageUrl=#CMT_ImageUrl#</isNotEmpty>
+                       <isNotEmpty property="CMT_RedirectUrl" prepend="and">CMT_RedirectUrl=#CMT_RedirectUrl#</isNotEmpty>
+                       <isNotEmpty property="CMT_Content" prepend="and">CMT_Content=#CMT_Content#</isNotEmpty>
+                       <isNotEmpty property="CMT_Status" prepend="and">CMT_Status=#CMT_Status#</isNotEmpty>
+                       <isNotEmpty property="CMT_CreateTime" prepend="and">CMT_CreateTime=#CMT_CreateTime#</isNotEmpty>
+                       <isNotEmpty property="CMT_IsRecomm" prepend="and">CMT_IsRecomm=#CMT_IsRecomm#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+          )
+
+          select CMT_ID,CMC_Id,U_Id,CMT_IssueTime,CMT_Title,CMT_ImageUrl,CMT_RedirectUrl,CMT_Content,CMT_Status,CMT_CreateTime,CMT_IsRecomm,IsDelState from cmscontent_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

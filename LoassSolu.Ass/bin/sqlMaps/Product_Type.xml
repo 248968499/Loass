@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Product_TypeEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].Product_Type 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="PT_Name">PT_Name</isNotEmpty>
+                        <isNotEmpty prepend="," property="ParentID">ParentID</isNotEmpty>
+                        <isNotEmpty prepend="," property="PT_Img">PT_Img</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="PT_Name">#PT_Name#</isNotEmpty>
+                    <isNotEmpty prepend="," property="ParentID">#ParentID#</isNotEmpty>
+                    <isNotEmpty prepend="," property="PT_Img">#PT_Img#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="PT_Id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[Product_Type] 
+            <dynamic prepend="set">
+                            <isNotNull property="PT_Name" prepend=",">PT_Name=#PT_Name#</isNotNull>
+                            <isNotNull property="ParentID" prepend=",">ParentID=#ParentID#</isNotNull>
+                            <isNotNull property="PT_Img" prepend=",">PT_Img=#PT_Img#</isNotNull>
+                            <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+             </dynamic>
+            where PT_Id = #PT_Id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[Product_Type] 
+            WHERE PT_Id = #PT_Id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="product_TypeEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            PT_Id,PT_Name,ParentID,PT_Img,IsDelState from Product_Type
+            <dynamic prepend="where">
+                       <isNotEmpty property="PT_Id" prepend="and">PT_Id=#PT_Id#</isNotEmpty>
+                       <isNotEmpty property="PT_Name" prepend="and">PT_Name=#PT_Name#</isNotEmpty>
+                       <isNotEmpty property="ParentID" prepend="and">ParentID=#ParentID#</isNotEmpty>
+                       <isNotEmpty property="PT_Img" prepend="and">PT_Img=#PT_Img#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+            order by PT_Id desc
+		</select>
+
+
+    <select id="product_type_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(PT_Id) from Product_Type
+            <dynamic prepend="where">
+                       <isNotEmpty property="PT_Id" prepend="and">PT_Id=#PT_Id#</isNotEmpty>
+                       <isNotEmpty property="PT_Name" prepend="and">PT_Name=#PT_Name#</isNotEmpty>
+                       <isNotEmpty property="ParentID" prepend="and">ParentID=#ParentID#</isNotEmpty>
+                       <isNotEmpty property="PT_Img" prepend="and">PT_Img=#PT_Img#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="product_type_list" listClass="list" resultClass="product_TypeEntity" parameterClass="System.Collections.IDictionary">
+            with product_type_list as
+            (
+            select  PT_Id,PT_Name,ParentID,PT_Img,IsDelState,ROW_NUMBER() OVER (order by PT_Id desc) as pos from Product_Type
+            <dynamic prepend="where">
+                       <isNotEmpty property="PT_Id" prepend="and">PT_Id=#PT_Id#</isNotEmpty>
+                       <isNotEmpty property="PT_Name" prepend="and">PT_Name=#PT_Name#</isNotEmpty>
+                       <isNotEmpty property="ParentID" prepend="and">ParentID=#ParentID#</isNotEmpty>
+                       <isNotEmpty property="PT_Img" prepend="and">PT_Img=#PT_Img#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+          )
+
+          select PT_Id,PT_Name,ParentID,PT_Img,IsDelState from product_type_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

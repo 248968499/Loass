@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="PayTypeEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].PayType 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="PT_TypeName">PT_TypeName</isNotEmpty>
+                        <isNotEmpty prepend="," property="PT_CardID">PT_CardID</isNotEmpty>
+                        <isNotEmpty prepend="," property="PT_Type">PT_Type</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+                        <isNotEmpty prepend="," property="U_ID">U_ID</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="PT_TypeName">#PT_TypeName#</isNotEmpty>
+                    <isNotEmpty prepend="," property="PT_CardID">#PT_CardID#</isNotEmpty>
+                    <isNotEmpty prepend="," property="PT_Type">#PT_Type#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+                    <isNotEmpty prepend="," property="U_ID">#U_ID#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="PT_Id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[PayType] 
+            <dynamic prepend="set">
+                            <isNotNull property="PT_TypeName" prepend=",">PT_TypeName=#PT_TypeName#</isNotNull>
+                            <isNotNull property="PT_CardID" prepend=",">PT_CardID=#PT_CardID#</isNotNull>
+                            <isNotNull property="PT_Type" prepend=",">PT_Type=#PT_Type#</isNotNull>
+                            <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+                            <isNotNull property="U_ID" prepend=",">U_ID=#U_ID#</isNotNull>
+             </dynamic>
+            where PT_Id = #PT_Id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[PayType] 
+            WHERE PT_Id = #PT_Id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="payTypeEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            PT_Id,PT_TypeName,PT_CardID,PT_Type,IsDelState,U_ID from PayType
+            <dynamic prepend="where">
+                       <isNotEmpty property="PT_Id" prepend="and">PT_Id=#PT_Id#</isNotEmpty>
+                       <isNotEmpty property="PT_TypeName" prepend="and">PT_TypeName=#PT_TypeName#</isNotEmpty>
+                       <isNotEmpty property="PT_CardID" prepend="and">PT_CardID=#PT_CardID#</isNotEmpty>
+                       <isNotEmpty property="PT_Type" prepend="and">PT_Type=#PT_Type#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+                       <isNotEmpty property="U_ID" prepend="and">U_ID=#U_ID#</isNotEmpty>
+            </dynamic>
+            order by PT_Id desc
+		</select>
+
+
+    <select id="paytype_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(PT_Id) from PayType
+            <dynamic prepend="where">
+                       <isNotEmpty property="PT_Id" prepend="and">PT_Id=#PT_Id#</isNotEmpty>
+                       <isNotEmpty property="PT_TypeName" prepend="and">PT_TypeName=#PT_TypeName#</isNotEmpty>
+                       <isNotEmpty property="PT_CardID" prepend="and">PT_CardID=#PT_CardID#</isNotEmpty>
+                       <isNotEmpty property="PT_Type" prepend="and">PT_Type=#PT_Type#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+                       <isNotEmpty property="U_ID" prepend="and">U_ID=#U_ID#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="paytype_list" listClass="list" resultClass="payTypeEntity" parameterClass="System.Collections.IDictionary">
+            with paytype_list as
+            (
+            select  PT_Id,PT_TypeName,PT_CardID,PT_Type,IsDelState,U_ID,ROW_NUMBER() OVER (order by PT_Id desc) as pos from PayType
+            <dynamic prepend="where">
+                       <isNotEmpty property="PT_Id" prepend="and">PT_Id=#PT_Id#</isNotEmpty>
+                       <isNotEmpty property="PT_TypeName" prepend="and">PT_TypeName=#PT_TypeName#</isNotEmpty>
+                       <isNotEmpty property="PT_CardID" prepend="and">PT_CardID=#PT_CardID#</isNotEmpty>
+                       <isNotEmpty property="PT_Type" prepend="and">PT_Type=#PT_Type#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+                       <isNotEmpty property="U_ID" prepend="and">U_ID=#U_ID#</isNotEmpty>
+            </dynamic>
+          )
+
+          select PT_Id,PT_TypeName,PT_CardID,PT_Type,IsDelState,U_ID from paytype_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>
