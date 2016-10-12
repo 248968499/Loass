@@ -1,7 +1,0 @@
-C:\Users\康\Desktop\LoassSolu\LoassSolu.Common\bin\Release\LoassSolu.Common.dll
-C:\Users\康\Desktop\LoassSolu\LoassSolu.Common\bin\Release\LoassSolu.Common.pdb
-C:\Users\康\Desktop\LoassSolu\LoassSolu.Common\bin\Release\log4net.dll
-C:\Users\康\Desktop\LoassSolu\LoassSolu.Common\bin\Release\Newtonsoft.Json.dll
-C:\Users\康\Desktop\LoassSolu\LoassSolu.Common\obj\Release\LoassSolu.Common.csprojResolveAssemblyReference.cache
-C:\Users\康\Desktop\LoassSolu\LoassSolu.Common\obj\Release\LoassSolu.Common.dll
-C:\Users\康\Desktop\LoassSolu\LoassSolu.Common\obj\Release\LoassSolu.Common.pdb
