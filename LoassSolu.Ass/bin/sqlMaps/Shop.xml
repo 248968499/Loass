@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ShopEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].Shop 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="S_Name">S_Name</isNotEmpty>
+                        <isNotEmpty prepend="," property="AR_Id">AR_Id</isNotEmpty>
+                        <isNotEmpty prepend="," property="S_AddressDetails">S_AddressDetails</isNotEmpty>
+                        <isNotEmpty prepend="," property="S_Tel">S_Tel</isNotEmpty>
+                        <isNotEmpty prepend="," property="S_Email">S_Email</isNotEmpty>
+                        <isNotEmpty prepend="," property="ST_Id">ST_Id</isNotEmpty>
+                        <isNotEmpty prepend="," property="S_Zipcode">S_Zipcode</isNotEmpty>
+                        <isNotEmpty prepend="," property="S_Distance">S_Distance</isNotEmpty>
+                        <isNotEmpty prepend="," property="S_Img">S_Img</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+                        <isNotEmpty prepend="," property="S_State">S_State</isNotEmpty>
+                        <isNotEmpty prepend="," property="S_MOQ">S_MOQ</isNotEmpty>
+                        <isNotEmpty prepend="," property="S_Begin_Time">S_Begin_Time</isNotEmpty>
+                        <isNotEmpty prepend="," property="S_EndTime">S_EndTime</isNotEmpty>
+                        <isNotEmpty prepend="," property="S_ShopState">S_ShopState</isNotEmpty>
+                        <isNotEmpty prepend="," property="S_ShopStateTime">S_ShopStateTime</isNotEmpty>
+                        <isNotEmpty prepend="," property="S_Referral">S_Referral</isNotEmpty>
+                        <isNotEmpty prepend="," property="S_Level">S_Level</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="S_Name">#S_Name#</isNotEmpty>
+                    <isNotEmpty prepend="," property="AR_Id">#AR_Id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="S_AddressDetails">#S_AddressDetails#</isNotEmpty>
+                    <isNotEmpty prepend="," property="S_Tel">#S_Tel#</isNotEmpty>
+                    <isNotEmpty prepend="," property="S_Email">#S_Email#</isNotEmpty>
+                    <isNotEmpty prepend="," property="ST_Id">#ST_Id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="S_Zipcode">#S_Zipcode#</isNotEmpty>
+                    <isNotEmpty prepend="," property="S_Distance">#S_Distance#</isNotEmpty>
+                    <isNotEmpty prepend="," property="S_Img">#S_Img#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+                    <isNotEmpty prepend="," property="S_State">#S_State#</isNotEmpty>
+                    <isNotEmpty prepend="," property="S_MOQ">#S_MOQ#</isNotEmpty>
+                    <isNotEmpty prepend="," property="S_Begin_Time">#S_Begin_Time#</isNotEmpty>
+                    <isNotEmpty prepend="," property="S_EndTime">#S_EndTime#</isNotEmpty>
+                    <isNotEmpty prepend="," property="S_ShopState">#S_ShopState#</isNotEmpty>
+                    <isNotEmpty prepend="," property="S_ShopStateTime">#S_ShopStateTime#</isNotEmpty>
+                    <isNotEmpty prepend="," property="S_Referral">#S_Referral#</isNotEmpty>
+                    <isNotEmpty prepend="," property="S_Level">#S_Level#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="S_Id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[Shop] 
+            <dynamic prepend="set">
+                            <isNotNull property="S_Name" prepend=",">S_Name=#S_Name#</isNotNull>
+                            <isNotNull property="AR_Id" prepend=",">AR_Id=#AR_Id#</isNotNull>
+                            <isNotNull property="S_AddressDetails" prepend=",">S_AddressDetails=#S_AddressDetails#</isNotNull>
+                            <isNotNull property="S_Tel" prepend=",">S_Tel=#S_Tel#</isNotNull>
+                            <isNotNull property="S_Email" prepend=",">S_Email=#S_Email#</isNotNull>
+                            <isNotNull property="ST_Id" prepend=",">ST_Id=#ST_Id#</isNotNull>
+                            <isNotNull property="S_Zipcode" prepend=",">S_Zipcode=#S_Zipcode#</isNotNull>
+                            <isNotNull property="S_Distance" prepend=",">S_Distance=#S_Distance#</isNotNull>
+                            <isNotNull property="S_Img" prepend=",">S_Img=#S_Img#</isNotNull>
+                            <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+                            <isNotNull property="S_State" prepend=",">S_State=#S_State#</isNotNull>
+                            <isNotNull property="S_MOQ" prepend=",">S_MOQ=#S_MOQ#</isNotNull>
+                            <isNotNull property="S_Begin_Time" prepend=",">S_Begin_Time=#S_Begin_Time#</isNotNull>
+                            <isNotNull property="S_EndTime" prepend=",">S_EndTime=#S_EndTime#</isNotNull>
+                            <isNotNull property="S_ShopState" prepend=",">S_ShopState=#S_ShopState#</isNotNull>
+                            <isNotNull property="S_ShopStateTime" prepend=",">S_ShopStateTime=#S_ShopStateTime#</isNotNull>
+                            <isNotNull property="S_Referral" prepend=",">S_Referral=#S_Referral#</isNotNull>
+                            <isNotNull property="S_Level" prepend=",">S_Level=#S_Level#</isNotNull>
+             </dynamic>
+            where S_Id = #S_Id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[Shop] 
+            WHERE S_Id = #S_Id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="shopEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            S_Id,S_Name,AR_Id,S_AddressDetails,S_Tel,S_Email,ST_Id,S_Zipcode,S_Distance,S_Img,IsDelState,S_State,S_MOQ,S_Begin_Time,S_EndTime,S_ShopState,S_ShopStateTime,S_Referral,S_Level from Shop
+            <dynamic prepend="where">
+                       <isNotEmpty property="S_Id" prepend="and">S_Id=#S_Id#</isNotEmpty>
+                       <isNotEmpty property="S_Name" prepend="and">S_Name=#S_Name#</isNotEmpty>
+                       <isNotEmpty property="AR_Id" prepend="and">AR_Id=#AR_Id#</isNotEmpty>
+                       <isNotEmpty property="S_AddressDetails" prepend="and">S_AddressDetails=#S_AddressDetails#</isNotEmpty>
+                       <isNotEmpty property="S_Tel" prepend="and">S_Tel=#S_Tel#</isNotEmpty>
+                       <isNotEmpty property="S_Email" prepend="and">S_Email=#S_Email#</isNotEmpty>
+                       <isNotEmpty property="ST_Id" prepend="and">ST_Id=#ST_Id#</isNotEmpty>
+                       <isNotEmpty property="S_Zipcode" prepend="and">S_Zipcode=#S_Zipcode#</isNotEmpty>
+                       <isNotEmpty property="S_Distance" prepend="and">S_Distance=#S_Distance#</isNotEmpty>
+                       <isNotEmpty property="S_Img" prepend="and">S_Img=#S_Img#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+                       <isNotEmpty property="S_State" prepend="and">S_State=#S_State#</isNotEmpty>
+                       <isNotEmpty property="S_MOQ" prepend="and">S_MOQ=#S_MOQ#</isNotEmpty>
+                       <isNotEmpty property="S_Begin_Time" prepend="and">S_Begin_Time=#S_Begin_Time#</isNotEmpty>
+                       <isNotEmpty property="S_EndTime" prepend="and">S_EndTime=#S_EndTime#</isNotEmpty>
+                       <isNotEmpty property="S_ShopState" prepend="and">S_ShopState=#S_ShopState#</isNotEmpty>
+                       <isNotEmpty property="S_ShopStateTime" prepend="and">S_ShopStateTime=#S_ShopStateTime#</isNotEmpty>
+                       <isNotEmpty property="S_Referral" prepend="and">S_Referral=#S_Referral#</isNotEmpty>
+                       <isNotEmpty property="S_Level" prepend="and">S_Level=#S_Level#</isNotEmpty>
+            </dynamic>
+            order by S_Id desc
+		</select>
+
+
+    <select id="shop_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(S_Id) from Shop
+            <dynamic prepend="where">
+                       <isNotEmpty property="S_Id" prepend="and">S_Id=#S_Id#</isNotEmpty>
+                       <isNotEmpty property="S_Name" prepend="and">S_Name=#S_Name#</isNotEmpty>
+                       <isNotEmpty property="AR_Id" prepend="and">AR_Id=#AR_Id#</isNotEmpty>
+                       <isNotEmpty property="S_AddressDetails" prepend="and">S_AddressDetails=#S_AddressDetails#</isNotEmpty>
+                       <isNotEmpty property="S_Tel" prepend="and">S_Tel=#S_Tel#</isNotEmpty>
+                       <isNotEmpty property="S_Email" prepend="and">S_Email=#S_Email#</isNotEmpty>
+                       <isNotEmpty property="ST_Id" prepend="and">ST_Id=#ST_Id#</isNotEmpty>
+                       <isNotEmpty property="S_Zipcode" prepend="and">S_Zipcode=#S_Zipcode#</isNotEmpty>
+                       <isNotEmpty property="S_Distance" prepend="and">S_Distance=#S_Distance#</isNotEmpty>
+                       <isNotEmpty property="S_Img" prepend="and">S_Img=#S_Img#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+                       <isNotEmpty property="S_State" prepend="and">S_State=#S_State#</isNotEmpty>
+                       <isNotEmpty property="S_MOQ" prepend="and">S_MOQ=#S_MOQ#</isNotEmpty>
+                       <isNotEmpty property="S_Begin_Time" prepend="and">S_Begin_Time=#S_Begin_Time#</isNotEmpty>
+                       <isNotEmpty property="S_EndTime" prepend="and">S_EndTime=#S_EndTime#</isNotEmpty>
+                       <isNotEmpty property="S_ShopState" prepend="and">S_ShopState=#S_ShopState#</isNotEmpty>
+                       <isNotEmpty property="S_ShopStateTime" prepend="and">S_ShopStateTime=#S_ShopStateTime#</isNotEmpty>
+                       <isNotEmpty property="S_Referral" prepend="and">S_Referral=#S_Referral#</isNotEmpty>
+                       <isNotEmpty property="S_Level" prepend="and">S_Level=#S_Level#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="shop_list" listClass="list" resultClass="shopEntity" parameterClass="System.Collections.IDictionary">
+            with shop_list as
+            (
+            select  S_Id,S_Name,AR_Id,S_AddressDetails,S_Tel,S_Email,ST_Id,S_Zipcode,S_Distance,S_Img,IsDelState,S_State,S_MOQ,S_Begin_Time,S_EndTime,S_ShopState,S_ShopStateTime,S_Referral,S_Level,ROW_NUMBER() OVER (order by S_Id desc) as pos from Shop
+            <dynamic prepend="where">
+                       <isNotEmpty property="S_Id" prepend="and">S_Id=#S_Id#</isNotEmpty>
+                       <isNotEmpty property="S_Name" prepend="and">S_Name=#S_Name#</isNotEmpty>
+                       <isNotEmpty property="AR_Id" prepend="and">AR_Id=#AR_Id#</isNotEmpty>
+                       <isNotEmpty property="S_AddressDetails" prepend="and">S_AddressDetails=#S_AddressDetails#</isNotEmpty>
+                       <isNotEmpty property="S_Tel" prepend="and">S_Tel=#S_Tel#</isNotEmpty>
+                       <isNotEmpty property="S_Email" prepend="and">S_Email=#S_Email#</isNotEmpty>
+                       <isNotEmpty property="ST_Id" prepend="and">ST_Id=#ST_Id#</isNotEmpty>
+                       <isNotEmpty property="S_Zipcode" prepend="and">S_Zipcode=#S_Zipcode#</isNotEmpty>
+                       <isNotEmpty property="S_Distance" prepend="and">S_Distance=#S_Distance#</isNotEmpty>
+                       <isNotEmpty property="S_Img" prepend="and">S_Img=#S_Img#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+                       <isNotEmpty property="S_State" prepend="and">S_State=#S_State#</isNotEmpty>
+                       <isNotEmpty property="S_MOQ" prepend="and">S_MOQ=#S_MOQ#</isNotEmpty>
+                       <isNotEmpty property="S_Begin_Time" prepend="and">S_Begin_Time=#S_Begin_Time#</isNotEmpty>
+                       <isNotEmpty property="S_EndTime" prepend="and">S_EndTime=#S_EndTime#</isNotEmpty>
+                       <isNotEmpty property="S_ShopState" prepend="and">S_ShopState=#S_ShopState#</isNotEmpty>
+                       <isNotEmpty property="S_ShopStateTime" prepend="and">S_ShopStateTime=#S_ShopStateTime#</isNotEmpty>
+                       <isNotEmpty property="S_Referral" prepend="and">S_Referral=#S_Referral#</isNotEmpty>
+                       <isNotEmpty property="S_Level" prepend="and">S_Level=#S_Level#</isNotEmpty>
+            </dynamic>
+          )
+
+          select S_Id,S_Name,AR_Id,S_AddressDetails,S_Tel,S_Email,ST_Id,S_Zipcode,S_Distance,S_Img,IsDelState,S_State,S_MOQ,S_Begin_Time,S_EndTime,S_ShopState,S_ShopStateTime,S_Referral,S_Level from shop_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

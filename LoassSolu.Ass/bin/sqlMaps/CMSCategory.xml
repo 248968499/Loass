@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="CMSCategoryEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].CMSCategory 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="CMC_CategroyName">CMC_CategroyName</isNotEmpty>
+                        <isNotEmpty prepend="," property="ParentID">ParentID</isNotEmpty>
+                        <isNotEmpty prepend="," property="CMC_Sort">CMC_Sort</isNotEmpty>
+                        <isNotEmpty prepend="," property="CMC_IsDisplay">CMC_IsDisplay</isNotEmpty>
+                        <isNotEmpty prepend="," property="CMC_CreateTime">CMC_CreateTime</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelStateCode">IsDelStateCode</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="CMC_CategroyName">#CMC_CategroyName#</isNotEmpty>
+                    <isNotEmpty prepend="," property="ParentID">#ParentID#</isNotEmpty>
+                    <isNotEmpty prepend="," property="CMC_Sort">#CMC_Sort#</isNotEmpty>
+                    <isNotEmpty prepend="," property="CMC_IsDisplay">#CMC_IsDisplay#</isNotEmpty>
+                    <isNotEmpty prepend="," property="CMC_CreateTime">#CMC_CreateTime#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelStateCode">#IsDelStateCode#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="CMC_Id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[CMSCategory] 
+            <dynamic prepend="set">
+                            <isNotNull property="CMC_CategroyName" prepend=",">CMC_CategroyName=#CMC_CategroyName#</isNotNull>
+                            <isNotNull property="ParentID" prepend=",">ParentID=#ParentID#</isNotNull>
+                            <isNotNull property="CMC_Sort" prepend=",">CMC_Sort=#CMC_Sort#</isNotNull>
+                            <isNotNull property="CMC_IsDisplay" prepend=",">CMC_IsDisplay=#CMC_IsDisplay#</isNotNull>
+                            <isNotNull property="CMC_CreateTime" prepend=",">CMC_CreateTime=#CMC_CreateTime#</isNotNull>
+                            <isNotNull property="IsDelStateCode" prepend=",">IsDelStateCode=#IsDelStateCode#</isNotNull>
+             </dynamic>
+            where CMC_Id = #CMC_Id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[CMSCategory] 
+            WHERE CMC_Id = #CMC_Id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="cMSCategoryEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            CMC_Id,CMC_CategroyName,ParentID,CMC_Sort,CMC_IsDisplay,CMC_CreateTime,IsDelStateCode from CMSCategory
+            <dynamic prepend="where">
+                       <isNotEmpty property="CMC_Id" prepend="and">CMC_Id=#CMC_Id#</isNotEmpty>
+                       <isNotEmpty property="CMC_CategroyName" prepend="and">CMC_CategroyName=#CMC_CategroyName#</isNotEmpty>
+                       <isNotEmpty property="ParentID" prepend="and">ParentID=#ParentID#</isNotEmpty>
+                       <isNotEmpty property="CMC_Sort" prepend="and">CMC_Sort=#CMC_Sort#</isNotEmpty>
+                       <isNotEmpty property="CMC_IsDisplay" prepend="and">CMC_IsDisplay=#CMC_IsDisplay#</isNotEmpty>
+                       <isNotEmpty property="CMC_CreateTime" prepend="and">CMC_CreateTime=#CMC_CreateTime#</isNotEmpty>
+                       <isNotEmpty property="IsDelStateCode" prepend="and">IsDelStateCode=#IsDelStateCode#</isNotEmpty>
+            </dynamic>
+            order by CMC_Id desc
+		</select>
+
+
+    <select id="cmscategory_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(CMC_Id) from CMSCategory
+            <dynamic prepend="where">
+                       <isNotEmpty property="CMC_Id" prepend="and">CMC_Id=#CMC_Id#</isNotEmpty>
+                       <isNotEmpty property="CMC_CategroyName" prepend="and">CMC_CategroyName=#CMC_CategroyName#</isNotEmpty>
+                       <isNotEmpty property="ParentID" prepend="and">ParentID=#ParentID#</isNotEmpty>
+                       <isNotEmpty property="CMC_Sort" prepend="and">CMC_Sort=#CMC_Sort#</isNotEmpty>
+                       <isNotEmpty property="CMC_IsDisplay" prepend="and">CMC_IsDisplay=#CMC_IsDisplay#</isNotEmpty>
+                       <isNotEmpty property="CMC_CreateTime" prepend="and">CMC_CreateTime=#CMC_CreateTime#</isNotEmpty>
+                       <isNotEmpty property="IsDelStateCode" prepend="and">IsDelStateCode=#IsDelStateCode#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="cmscategory_list" listClass="list" resultClass="cMSCategoryEntity" parameterClass="System.Collections.IDictionary">
+            with cmscategory_list as
+            (
+            select  CMC_Id,CMC_CategroyName,ParentID,CMC_Sort,CMC_IsDisplay,CMC_CreateTime,IsDelStateCode,ROW_NUMBER() OVER (order by CMC_Id desc) as pos from CMSCategory
+            <dynamic prepend="where">
+                       <isNotEmpty property="CMC_Id" prepend="and">CMC_Id=#CMC_Id#</isNotEmpty>
+                       <isNotEmpty property="CMC_CategroyName" prepend="and">CMC_CategroyName=#CMC_CategroyName#</isNotEmpty>
+                       <isNotEmpty property="ParentID" prepend="and">ParentID=#ParentID#</isNotEmpty>
+                       <isNotEmpty property="CMC_Sort" prepend="and">CMC_Sort=#CMC_Sort#</isNotEmpty>
+                       <isNotEmpty property="CMC_IsDisplay" prepend="and">CMC_IsDisplay=#CMC_IsDisplay#</isNotEmpty>
+                       <isNotEmpty property="CMC_CreateTime" prepend="and">CMC_CreateTime=#CMC_CreateTime#</isNotEmpty>
+                       <isNotEmpty property="IsDelStateCode" prepend="and">IsDelStateCode=#IsDelStateCode#</isNotEmpty>
+            </dynamic>
+          )
+
+          select CMC_Id,CMC_CategroyName,ParentID,CMC_Sort,CMC_IsDisplay,CMC_CreateTime,IsDelStateCode from cmscategory_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

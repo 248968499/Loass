@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="ProductEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].Product 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="P_Name">P_Name</isNotEmpty>
+                        <isNotEmpty prepend="," property="P_Price">P_Price</isNotEmpty>
+                        <isNotEmpty prepend="," property="SU_Id">SU_Id</isNotEmpty>
+                        <isNotEmpty prepend="," property="P_Img">P_Img</isNotEmpty>
+                        <isNotEmpty prepend="," property="P_Descr">P_Descr</isNotEmpty>
+                        <isNotEmpty prepend="," property="PT_Id">PT_Id</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+                        <isNotEmpty prepend="," property="P_State">P_State</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="P_Name">#P_Name#</isNotEmpty>
+                    <isNotEmpty prepend="," property="P_Price">#P_Price#</isNotEmpty>
+                    <isNotEmpty prepend="," property="SU_Id">#SU_Id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="P_Img">#P_Img#</isNotEmpty>
+                    <isNotEmpty prepend="," property="P_Descr">#P_Descr#</isNotEmpty>
+                    <isNotEmpty prepend="," property="PT_Id">#PT_Id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+                    <isNotEmpty prepend="," property="P_State">#P_State#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="P_Id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[Product] 
+            <dynamic prepend="set">
+                            <isNotNull property="P_Name" prepend=",">P_Name=#P_Name#</isNotNull>
+                            <isNotNull property="P_Price" prepend=",">P_Price=#P_Price#</isNotNull>
+                            <isNotNull property="SU_Id" prepend=",">SU_Id=#SU_Id#</isNotNull>
+                            <isNotNull property="P_Img" prepend=",">P_Img=#P_Img#</isNotNull>
+                            <isNotNull property="P_Descr" prepend=",">P_Descr=#P_Descr#</isNotNull>
+                            <isNotNull property="PT_Id" prepend=",">PT_Id=#PT_Id#</isNotNull>
+                            <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+                            <isNotNull property="P_State" prepend=",">P_State=#P_State#</isNotNull>
+             </dynamic>
+            where P_Id = #P_Id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[Product] 
+            WHERE P_Id = #P_Id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="productEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            P_Id,P_Name,P_Price,SU_Id,P_Img,P_Descr,PT_Id,IsDelState,P_State from Product
+            <dynamic prepend="where">
+                       <isNotEmpty property="P_Id" prepend="and">P_Id=#P_Id#</isNotEmpty>
+                       <isNotEmpty property="P_Name" prepend="and">P_Name=#P_Name#</isNotEmpty>
+                       <isNotEmpty property="P_Price" prepend="and">P_Price=#P_Price#</isNotEmpty>
+                       <isNotEmpty property="SU_Id" prepend="and">SU_Id=#SU_Id#</isNotEmpty>
+                       <isNotEmpty property="P_Img" prepend="and">P_Img=#P_Img#</isNotEmpty>
+                       <isNotEmpty property="P_Descr" prepend="and">P_Descr=#P_Descr#</isNotEmpty>
+                       <isNotEmpty property="PT_Id" prepend="and">PT_Id=#PT_Id#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+                       <isNotEmpty property="P_State" prepend="and">P_State=#P_State#</isNotEmpty>
+            </dynamic>
+            order by P_Id desc
+		</select>
+
+
+    <select id="product_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(P_Id) from Product
+            <dynamic prepend="where">
+                       <isNotEmpty property="P_Id" prepend="and">P_Id=#P_Id#</isNotEmpty>
+                       <isNotEmpty property="P_Name" prepend="and">P_Name=#P_Name#</isNotEmpty>
+                       <isNotEmpty property="P_Price" prepend="and">P_Price=#P_Price#</isNotEmpty>
+                       <isNotEmpty property="SU_Id" prepend="and">SU_Id=#SU_Id#</isNotEmpty>
+                       <isNotEmpty property="P_Img" prepend="and">P_Img=#P_Img#</isNotEmpty>
+                       <isNotEmpty property="P_Descr" prepend="and">P_Descr=#P_Descr#</isNotEmpty>
+                       <isNotEmpty property="PT_Id" prepend="and">PT_Id=#PT_Id#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+                       <isNotEmpty property="P_State" prepend="and">P_State=#P_State#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="product_list" listClass="list" resultClass="productEntity" parameterClass="System.Collections.IDictionary">
+            with product_list as
+            (
+            select  P_Id,P_Name,P_Price,SU_Id,P_Img,P_Descr,PT_Id,IsDelState,P_State,ROW_NUMBER() OVER (order by P_Id desc) as pos from Product
+            <dynamic prepend="where">
+                       <isNotEmpty property="P_Id" prepend="and">P_Id=#P_Id#</isNotEmpty>
+                       <isNotEmpty property="P_Name" prepend="and">P_Name=#P_Name#</isNotEmpty>
+                       <isNotEmpty property="P_Price" prepend="and">P_Price=#P_Price#</isNotEmpty>
+                       <isNotEmpty property="SU_Id" prepend="and">SU_Id=#SU_Id#</isNotEmpty>
+                       <isNotEmpty property="P_Img" prepend="and">P_Img=#P_Img#</isNotEmpty>
+                       <isNotEmpty property="P_Descr" prepend="and">P_Descr=#P_Descr#</isNotEmpty>
+                       <isNotEmpty property="PT_Id" prepend="and">PT_Id=#PT_Id#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+                       <isNotEmpty property="P_State" prepend="and">P_State=#P_State#</isNotEmpty>
+            </dynamic>
+          )
+
+          select P_Id,P_Name,P_Price,SU_Id,P_Img,P_Descr,PT_Id,IsDelState,P_State from product_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+<!--t通过商店id查商品-->
+    <select id="SeelctProductInfiByJID" listClass="list" resultClass="productEntity" parameterClass="System.Collections.IDictionary">
+      select a.S_Id,a.S_Name,b.*   from Shop  as a  inner join  Product  as  b   on a.S_Id=b.S_Id
+      <dynamic prepend="where">
+        <isNotEmpty property="S_Id" prepend="and">a.S_Id=#S_Id#</isNotEmpty>
+        <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+
+      </dynamic>
+
+
+    </select>
+<!--通过商品id查找商品分类-->
+    <select id="SeelctPTlistByJID" listClass="list" resultClass="productEntity" parameterClass="System.Collections.IDictionary">
+      select *  from  Product  as a inner  join Product_Type as  b  on a.PT_Id=b.PT_Id
+      <dynamic prepend="where">
+        <isNotEmpty property="PT_Id" prepend="and">a.PT_Id=#PT_Id#</isNotEmpty>
+        <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+
+      </dynamic>
+
+
+    </select>
+
+	</statements>
+
+ </sqlMap>

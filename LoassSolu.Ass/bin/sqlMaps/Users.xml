@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="UsersEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+
+  <statements>
+
+    <insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+      INSERT INTO [dbo].Users
+      (
+      <dynamic prepend=" ">
+        <isNotEmpty prepend="," property="U_Name">U_Name</isNotEmpty>
+        <isNotEmpty prepend="," property="U_Pwd">U_Pwd</isNotEmpty>
+        <isNotEmpty prepend="," property="U_Email">U_Email</isNotEmpty>
+        <isNotEmpty prepend="," property="U_CardId">U_CardId</isNotEmpty>
+        <isNotEmpty prepend="," property="U_CardType">U_CardType</isNotEmpty>
+        <isNotEmpty prepend="," property="U_Firstname">U_Firstname</isNotEmpty>
+        <isNotEmpty prepend="," property="U_LastName">U_LastName</isNotEmpty>
+        <isNotEmpty prepend="," property="U_Sex">U_Sex</isNotEmpty>
+        <isNotEmpty prepend="," property="U_Birthday">U_Birthday</isNotEmpty>
+        <isNotEmpty prepend="," property="U_Tel">U_Tel</isNotEmpty>
+        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+        <isNotEmpty prepend="," property="U_CreateTime">U_CreateTime</isNotEmpty>
+        <isNotEmpty prepend="," property="U_UpdateTime">U_UpdateTime</isNotEmpty>
+        <isNotEmpty prepend="," property="U_Lastlogintime">U_Lastlogintime</isNotEmpty>
+        <isNotEmpty prepend="," property="U_HImg">U_HImg</isNotEmpty>
+        <isNotEmpty prepend="," property="U_BeginTime">U_BeginTime</isNotEmpty>
+        <isNotEmpty prepend="," property="U_EndTime">U_EndTime</isNotEmpty>
+        <isNotEmpty prepend="," property="U_WorkState">U_WorkState</isNotEmpty>
+        <isNotEmpty prepend="," property="U_StateTime">U_StateTime</isNotEmpty>
+      </dynamic>
+      )
+      values
+      (
+      <dynamic prepend=" ">
+        <isNotEmpty prepend="," property="U_Name">#U_Name#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_Pwd">#U_Pwd#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_Email">#U_Email#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_CardId">#U_CardId#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_CardType">#U_CardType#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_Firstname">#U_Firstname#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_LastName">#U_LastName#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_Sex">#U_Sex#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_Birthday">#U_Birthday#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_Tel">#U_Tel#</isNotEmpty>
+        <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_CreateTime">#U_CreateTime#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_UpdateTime">#U_UpdateTime#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_Lastlogintime">#U_Lastlogintime#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_HImg">#U_HImg#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_BeginTime">#U_BeginTime#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_EndTime">#U_EndTime#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_WorkState">#U_WorkState#</isNotEmpty>
+        <isNotEmpty prepend="," property="U_StateTime">#U_StateTime#</isNotEmpty>
+      </dynamic>
+      )
+
+      <selectKey resultClass="int" type="post" property="U_Id">
+        select @@IDENTITY as value
+      </selectKey>
+    </insert>
+
+    <update id="update" parameterClass="System.Collections.IDictionary">
+      UPDATE [dbo].[Users]
+      <dynamic prepend="set">
+        <isNotNull property="U_Name" prepend=",">U_Name=#U_Name#</isNotNull>
+        <isNotNull property="U_Pwd" prepend=",">U_Pwd=#U_Pwd#</isNotNull>
+        <isNotNull property="U_Email" prepend=",">U_Email=#U_Email#</isNotNull>
+        <isNotNull property="U_CardId" prepend=",">U_CardId=#U_CardId#</isNotNull>
+        <isNotNull property="U_CardType" prepend=",">U_CardType=#U_CardType#</isNotNull>
+        <isNotNull property="U_Firstname" prepend=",">U_Firstname=#U_Firstname#</isNotNull>
+        <isNotNull property="U_LastName" prepend=",">U_LastName=#U_LastName#</isNotNull>
+        <isNotNull property="U_Sex" prepend=",">U_Sex=#U_Sex#</isNotNull>
+        <isNotNull property="U_Birthday" prepend=",">U_Birthday=#U_Birthday#</isNotNull>
+        <isNotNull property="U_Tel" prepend=",">U_Tel=#U_Tel#</isNotNull>
+        <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+        <isNotNull property="U_CreateTime" prepend=",">U_CreateTime=#U_CreateTime#</isNotNull>
+        <isNotNull property="U_UpdateTime" prepend=",">U_UpdateTime=#U_UpdateTime#</isNotNull>
+        <isNotNull property="U_Lastlogintime" prepend=",">U_Lastlogintime=#U_Lastlogintime#</isNotNull>
+        <isNotNull property="U_HImg" prepend=",">U_HImg=#U_HImg#</isNotNull>
+        <isNotNull property="U_BeginTime" prepend=",">U_BeginTime=#U_BeginTime#</isNotNull>
+        <isNotNull property="U_EndTime" prepend=",">U_EndTime=#U_EndTime#</isNotNull>
+        <isNotNull property="U_WorkState" prepend=",">U_WorkState=#U_WorkState#</isNotNull>
+        <isNotNull property="U_StateTime" prepend=",">U_StateTime=#U_StateTime#</isNotNull>
+      </dynamic>
+      where U_Id = #U_Id#
+    </update>
+
+    <delete id="delete" parameterClass="System.Collections.IDictionary">
+      DELETE FROM [dbo].[Users]
+      WHERE U_Id = #U_Id#
+    </delete>
+
+    <select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="usersEntity">
+      SELECT
+      <dynamic prepend="top">
+        <isNotEmpty property="TopNum" prepend="">
+          $TopNum$
+        </isNotEmpty>
+      </dynamic>
+      U_Id,U_Name,U_Pwd,U_Email,U_CardId,U_CardType,U_Firstname,U_LastName,U_Sex,U_Birthday,U_Tel,IsDelState,U_CreateTime,U_UpdateTime,U_Lastlogintime,U_HImg,U_BeginTime,U_EndTime,U_WorkState,U_StateTime from Users
+      <dynamic prepend="where">
+        <isNotEmpty property="U_Id" prepend="and">U_Id=#U_Id#</isNotEmpty>
+        <isNotEmpty property="U_Name" prepend="and">U_Name=#U_Name#</isNotEmpty>
+        <isNotEmpty property="U_Pwd" prepend="and">U_Pwd=#U_Pwd#</isNotEmpty>
+        <isNotEmpty property="U_Email" prepend="and">U_Email=#U_Email#</isNotEmpty>
+        <isNotEmpty property="U_CardId" prepend="and">U_CardId=#U_CardId#</isNotEmpty>
+        <isNotEmpty property="U_CardType" prepend="and">U_CardType=#U_CardType#</isNotEmpty>
+        <isNotEmpty property="U_Firstname" prepend="and">U_Firstname=#U_Firstname#</isNotEmpty>
+        <isNotEmpty property="U_LastName" prepend="and">U_LastName=#U_LastName#</isNotEmpty>
+        <isNotEmpty property="U_Sex" prepend="and">U_Sex=#U_Sex#</isNotEmpty>
+        <isNotEmpty property="U_Birthday" prepend="and">U_Birthday=#U_Birthday#</isNotEmpty>
+        <isNotEmpty property="U_Tel" prepend="and">U_Tel=#U_Tel#</isNotEmpty>
+        <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+        <isNotEmpty property="U_CreateTime" prepend="and">U_CreateTime=#U_CreateTime#</isNotEmpty>
+        <isNotEmpty property="U_UpdateTime" prepend="and">U_UpdateTime=#U_UpdateTime#</isNotEmpty>
+        <isNotEmpty property="U_Lastlogintime" prepend="and">U_Lastlogintime=#U_Lastlogintime#</isNotEmpty>
+        <isNotEmpty property="U_HImg" prepend="and">U_HImg=#U_HImg#</isNotEmpty>
+        <isNotEmpty property="U_BeginTime" prepend="and">U_BeginTime=#U_BeginTime#</isNotEmpty>
+        <isNotEmpty property="U_EndTime" prepend="and">U_EndTime=#U_EndTime#</isNotEmpty>
+        <isNotEmpty property="U_WorkState" prepend="and">U_WorkState=#U_WorkState#</isNotEmpty>
+        <isNotEmpty property="U_StateTime" prepend="and">U_StateTime=#U_StateTime#</isNotEmpty>
+      </dynamic>
+      order by U_Id desc
+    </select>
+
+
+    <select id="users_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+      select count(U_Id) from Users
+      <dynamic prepend="where">
+        <isNotEmpty property="U_Id" prepend="and">U_Id=#U_Id#</isNotEmpty>
+        <isNotEmpty property="U_Name" prepend="and">U_Name=#U_Name#</isNotEmpty>
+        <isNotEmpty property="U_Pwd" prepend="and">U_Pwd=#U_Pwd#</isNotEmpty>
+        <isNotEmpty property="U_Email" prepend="and">U_Email=#U_Email#</isNotEmpty>
+        <isNotEmpty property="U_CardId" prepend="and">U_CardId=#U_CardId#</isNotEmpty>
+        <isNotEmpty property="U_CardType" prepend="and">U_CardType=#U_CardType#</isNotEmpty>
+        <isNotEmpty property="U_Firstname" prepend="and">U_Firstname=#U_Firstname#</isNotEmpty>
+        <isNotEmpty property="U_LastName" prepend="and">U_LastName=#U_LastName#</isNotEmpty>
+        <isNotEmpty property="U_Sex" prepend="and">U_Sex=#U_Sex#</isNotEmpty>
+        <isNotEmpty property="U_Birthday" prepend="and">U_Birthday=#U_Birthday#</isNotEmpty>
+        <isNotEmpty property="U_Tel" prepend="and">U_Tel=#U_Tel#</isNotEmpty>
+        <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+        <isNotEmpty property="U_CreateTime" prepend="and">U_CreateTime=#U_CreateTime#</isNotEmpty>
+        <isNotEmpty property="U_UpdateTime" prepend="and">U_UpdateTime=#U_UpdateTime#</isNotEmpty>
+        <isNotEmpty property="U_Lastlogintime" prepend="and">U_Lastlogintime=#U_Lastlogintime#</isNotEmpty>
+        <isNotEmpty property="U_HImg" prepend="and">U_HImg=#U_HImg#</isNotEmpty>
+        <isNotEmpty property="U_BeginTime" prepend="and">U_BeginTime=#U_BeginTime#</isNotEmpty>
+        <isNotEmpty property="U_EndTime" prepend="and">U_EndTime=#U_EndTime#</isNotEmpty>
+        <isNotEmpty property="U_WorkState" prepend="and">U_WorkState=#U_WorkState#</isNotEmpty>
+        <isNotEmpty property="U_StateTime" prepend="and">U_StateTime=#U_StateTime#</isNotEmpty>
+      </dynamic>
+    </select>
+
+    <select id="users_list" listClass="list" resultClass="usersEntity" parameterClass="System.Collections.IDictionary">
+      with users_list as
+      (
+      select  U_Id,U_Name,U_Pwd,U_Email,U_CardId,U_CardType,U_Firstname,U_LastName,U_Sex,U_Birthday,U_Tel,IsDelState,U_CreateTime,U_UpdateTime,U_Lastlogintime,U_HImg,U_BeginTime,U_EndTime,U_WorkState,U_StateTime,ROW_NUMBER() OVER (order by U_Id desc) as pos from Users
+      <dynamic prepend="where">
+        <isNotEmpty property="U_Id" prepend="and">U_Id=#U_Id#</isNotEmpty>
+        <isNotEmpty property="U_Name" prepend="and">U_Name=#U_Name#</isNotEmpty>
+        <isNotEmpty property="U_Pwd" prepend="and">U_Pwd=#U_Pwd#</isNotEmpty>
+        <isNotEmpty property="U_Email" prepend="and">U_Email=#U_Email#</isNotEmpty>
+        <isNotEmpty property="U_CardId" prepend="and">U_CardId=#U_CardId#</isNotEmpty>
+        <isNotEmpty property="U_CardType" prepend="and">U_CardType=#U_CardType#</isNotEmpty>
+        <isNotEmpty property="U_Firstname" prepend="and">U_Firstname=#U_Firstname#</isNotEmpty>
+        <isNotEmpty property="U_LastName" prepend="and">U_LastName=#U_LastName#</isNotEmpty>
+        <isNotEmpty property="U_Sex" prepend="and">U_Sex=#U_Sex#</isNotEmpty>
+        <isNotEmpty property="U_Birthday" prepend="and">U_Birthday=#U_Birthday#</isNotEmpty>
+        <isNotEmpty property="U_Tel" prepend="and">U_Tel=#U_Tel#</isNotEmpty>
+        <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+        <isNotEmpty property="U_CreateTime" prepend="and">U_CreateTime=#U_CreateTime#</isNotEmpty>
+        <isNotEmpty property="U_UpdateTime" prepend="and">U_UpdateTime=#U_UpdateTime#</isNotEmpty>
+        <isNotEmpty property="U_Lastlogintime" prepend="and">U_Lastlogintime=#U_Lastlogintime#</isNotEmpty>
+        <isNotEmpty property="U_HImg" prepend="and">U_HImg=#U_HImg#</isNotEmpty>
+        <isNotEmpty property="U_BeginTime" prepend="and">U_BeginTime=#U_BeginTime#</isNotEmpty>
+        <isNotEmpty property="U_EndTime" prepend="and">U_EndTime=#U_EndTime#</isNotEmpty>
+        <isNotEmpty property="U_WorkState" prepend="and">U_WorkState=#U_WorkState#</isNotEmpty>
+        <isNotEmpty property="U_StateTime" prepend="and">U_StateTime=#U_StateTime#</isNotEmpty>
+      </dynamic>
+      )
+
+      select U_Id,U_Name,U_Pwd,U_Email,U_CardId,U_CardType,U_Firstname,U_LastName,U_Sex,U_Birthday,U_Tel,IsDelState,U_CreateTime,U_UpdateTime,U_Lastlogintime,U_HImg,U_BeginTime,U_EndTime,U_WorkState,U_StateTime from users_list
+      <dynamic prepend="where">
+        <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+        <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+      </dynamic>
+    </select>
+    <select id="Login" listClass="list" resultClass="usersEntity" parameterClass="System.Collections.IDictionary">
+      select U_Id,U_Name,U_Email,U_CardId,U_CardType,U_Firstname,U_LastName,U_Sex,U_Birthday,U_Tel,
+      IsDelState,U_CreateTime,U_UpdateTime,U_lastlogintime,U_HImg,
+      U_beginTime,U_EndTime,U_WorkState,U_StateTime
+      from users
+      <dynamic prepend="where">
+        <isNotEmpty property="U_Email" prepend="and">U_Email= #U_Email#</isNotEmpty>
+        <isNotEmpty property="U_Pwd" prepend="and">U_Pwd= #U_Pwd#</isNotEmpty>
+        <isNotEmpty property="IsDelState" prepend="and">IsDelState= #IsDelState#</isNotEmpty>
+      </dynamic>
+
+    </select>
+
+    <select id="LoginShop" listClass="list" resultClass="usersEntity" parameterClass="System.Collections.IDictionary">
+      SELECT a.U_Id,a.U_Name,a.U_Pwd,a.U_Email,b.*  FROM  Users  as a inner  join  Permission_U_S as b  on  a.U_Id=b.U_Id
+      <dynamic prepend="where">
+        <isNotEmpty property="U_Name" prepend="and">(a.U_Name=#U_Name# or a.U_Email=#U_Name# or  a.U_Tel=#U_Name#) </isNotEmpty>
+        <isNotEmpty property="U_Pwd" prepend="and">a.U_Pwd= #U_Pwd#</isNotEmpty>
+        <isNotEmpty property="IsDelState" prepend="and">b.IsDelState= #IsDelState#</isNotEmpty>
+      </dynamic>
+
+    </select>
+    
+    
+  </statements>
+
+</sqlMap>

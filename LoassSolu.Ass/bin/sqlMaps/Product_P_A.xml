@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Product_P_AEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].Product_P_A 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="P_Id">P_Id</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="P_Id">#P_Id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="PA_Id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[Product_P_A] 
+            <dynamic prepend="set">
+                            <isNotNull property="P_Id" prepend=",">P_Id=#P_Id#</isNotNull>
+                            <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+             </dynamic>
+            where PA_Id = #PA_Id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[Product_P_A] 
+            WHERE PA_Id = #PA_Id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="product_P_AEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            PA_Id,P_Id,IsDelState from Product_P_A
+            <dynamic prepend="where">
+                       <isNotEmpty property="PA_Id" prepend="and">PA_Id=#PA_Id#</isNotEmpty>
+                       <isNotEmpty property="P_Id" prepend="and">P_Id=#P_Id#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+            order by PA_Id desc
+		</select>
+
+
+    <select id="product_p_a_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(PA_Id) from Product_P_A
+            <dynamic prepend="where">
+                       <isNotEmpty property="PA_Id" prepend="and">PA_Id=#PA_Id#</isNotEmpty>
+                       <isNotEmpty property="P_Id" prepend="and">P_Id=#P_Id#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="product_p_a_list" listClass="list" resultClass="product_P_AEntity" parameterClass="System.Collections.IDictionary">
+            with product_p_a_list as
+            (
+            select  PA_Id,P_Id,IsDelState,ROW_NUMBER() OVER (order by PA_Id desc) as pos from Product_P_A
+            <dynamic prepend="where">
+                       <isNotEmpty property="PA_Id" prepend="and">PA_Id=#PA_Id#</isNotEmpty>
+                       <isNotEmpty property="P_Id" prepend="and">P_Id=#P_Id#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+          )
+
+          select PA_Id,P_Id,IsDelState from product_p_a_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

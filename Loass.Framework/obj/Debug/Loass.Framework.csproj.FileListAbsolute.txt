@@ -1,0 +1,12 @@
+C:\Users\康\Desktop\LoassSolu\Loass.Framework\obj\Debug\Loass.Framework.csprojResolveAssemblyReference.cache
+C:\Users\康\Desktop\LoassSolu\Loass.Framework\bin\Debug\Loass.Framework.dll.config
+C:\Users\康\Desktop\LoassSolu\Loass.Framework\bin\Debug\Loass.Framework.dll
+C:\Users\康\Desktop\LoassSolu\Loass.Framework\bin\Debug\Loass.Framework.pdb
+C:\Users\康\Desktop\LoassSolu\Loass.Framework\bin\Debug\EntityFramework.dll
+C:\Users\康\Desktop\LoassSolu\Loass.Framework\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\康\Desktop\LoassSolu\Loass.Framework\bin\Debug\EntityFramework.xml
+C:\Users\康\Desktop\LoassSolu\Loass.Framework\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\康\Desktop\LoassSolu\Loass.Framework\bin\Debug\zh-Hans\EntityFramework.resources.dll
+C:\Users\康\Desktop\LoassSolu\Loass.Framework\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
+C:\Users\康\Desktop\LoassSolu\Loass.Framework\obj\Debug\Loass.Framework.dll
+C:\Users\康\Desktop\LoassSolu\Loass.Framework\obj\Debug\Loass.Framework.pdb

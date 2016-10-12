@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="Aliases"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+  <alias>
+    <typeAlias alias="tb_UserEntity" type="LoassSolu.Services.Entities.tb_UserEntity,LoassSolu.Services"/> 
+    <typeAlias alias="tb_User_AttentionEntity" type="LoassSolu.Services.Entities.Tb_User_AttentionEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_Secret_MessageEntity" type="LoassSolu.Services.Entities.tb_Secret_MessageEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_System_MessageEntity" type="LoassSolu.Services.Entities.tb_System_MessageEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_Friendly_LinkEntity" type="LoassSolu.Services.Entities.tb_Friendly_LinkEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_AdEntity" type="LoassSolu.Services.Entities.tb_AdEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_About_BlogEntity" type="LoassSolu.Services.Entities.tb_About_BlogEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_VisitorEntity" type="LoassSolu.Services.Entities.tb_VisitorEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_ShuoshuoEntity" type="LoassSolu.Services.Entities.tb_ShuoshuoEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_Photo_SortEntity" type="LoassSolu.Services.Entities.tb_Photo_SortEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_PhotosEntity" type="LoassSolu.Services.Entities.tb_PhotosEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_Article_SortEntity" type="LoassSolu.Services.Entities.tb_Article_SortEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_ArticleEntity" type="LoassSolu.Services.Entities.tb_ArticleEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_User_CommentEntity" type="LoassSolu.Services.Entities.tb_User_CommentEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_Phone_MessageEntity" type="LoassSolu.Services.Entities.tb_Phone_MessageEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_User_RankEntity" type="LoassSolu.Services.Entities.tb_User_RankEntity,LoassSolu.Services"/> 
+    <typeAlias alias="tb_Power_ListEntity" type="LoassSolu.Services.Entities.tb_Power_ListEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_User_PowerEntity" type="LoassSolu.Services.Entities.tb_User_PowerEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_GroupEntity" type="LoassSolu.Services.Entities.tb_GroupEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_User_GroupEntity" type="LoassSolu.Services.Entities.tb_User_GroupEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_Group_PowerEntity" type="LoassSolu.Services.Entities.tb_Group_PowerEntity,LoassSolu.Services"/>
+    <typeAlias alias="tb_FriendEntity" type="LoassSolu.Services.Entities.tb_FriendEntity,LoassSolu.Services"/>
+  </alias>
+</sqlMap>

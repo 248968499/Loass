@@ -1,0 +1,7 @@
+C:\Users\康\Desktop\LoassSolu\LoassSolu.Errors\bin\Release\LoassSolu.Errors.dll
+C:\Users\康\Desktop\LoassSolu\LoassSolu.Errors\bin\Release\LoassSolu.Errors.pdb
+C:\Users\康\Desktop\LoassSolu\LoassSolu.Errors\bin\Release\log4net.dll
+C:\Users\康\Desktop\LoassSolu\LoassSolu.Errors\bin\Release\Newtonsoft.Json.dll
+C:\Users\康\Desktop\LoassSolu\LoassSolu.Errors\obj\Release\LoassSolu.Errors.csprojResolveAssemblyReference.cache
+C:\Users\康\Desktop\LoassSolu\LoassSolu.Errors\obj\Release\LoassSolu.Errors.dll
+C:\Users\康\Desktop\LoassSolu\LoassSolu.Errors\obj\Release\LoassSolu.Errors.pdb

@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="tb_User_RankEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].tb_User_Rank 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="rank_mark">rank_mark</isNotEmpty>
+                        <isNotEmpty prepend="," property="rank_name">rank_name</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="rank_mark">#rank_mark#</isNotEmpty>
+                    <isNotEmpty prepend="," property="rank_name">#rank_name#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="rank_id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[tb_User_Rank] 
+            <dynamic prepend="set">
+                            <isNotNull property="rank_mark" prepend=",">rank_mark=#rank_mark#</isNotNull>
+                            <isNotNull property="rank_name" prepend=",">rank_name=#rank_name#</isNotNull>
+             </dynamic>
+            where rank_id = #rank_id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[tb_User_Rank] 
+            WHERE rank_id = #rank_id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="tb_User_RankEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            rank_id,rank_mark,rank_name from tb_User_Rank
+            <dynamic prepend="where">
+                       <isNotEmpty property="rank_id" prepend="and">rank_id=#rank_id#</isNotEmpty>
+                       <isNotEmpty property="rank_mark" prepend="and">rank_mark=#rank_mark#</isNotEmpty>
+                       <isNotEmpty property="rank_name" prepend="and">rank_name=#rank_name#</isNotEmpty>
+            </dynamic>
+            order by rank_id desc
+		</select>
+
+
+    <select id="tb_user_rank_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(rank_id) from tb_User_Rank
+            <dynamic prepend="where">
+                       <isNotEmpty property="rank_id" prepend="and">rank_id=#rank_id#</isNotEmpty>
+                       <isNotEmpty property="rank_mark" prepend="and">rank_mark=#rank_mark#</isNotEmpty>
+                       <isNotEmpty property="rank_name" prepend="and">rank_name=#rank_name#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="tb_user_rank_list" listClass="list" resultClass="tb_User_RankEntity" parameterClass="System.Collections.IDictionary">
+            with tb_user_rank_list as
+            (
+            select  rank_id,rank_mark,rank_name,ROW_NUMBER() OVER (order by rank_id desc) as pos from tb_User_Rank
+            <dynamic prepend="where">
+                       <isNotEmpty property="rank_id" prepend="and">rank_id=#rank_id#</isNotEmpty>
+                       <isNotEmpty property="rank_mark" prepend="and">rank_mark=#rank_mark#</isNotEmpty>
+                       <isNotEmpty property="rank_name" prepend="and">rank_name=#rank_name#</isNotEmpty>
+            </dynamic>
+          )
+
+          select rank_id,rank_mark,rank_name from tb_user_rank_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

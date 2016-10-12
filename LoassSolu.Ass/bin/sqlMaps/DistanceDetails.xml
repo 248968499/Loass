@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="DistanceDetailsEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].DistanceDetails 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="D_ID">D_ID</isNotEmpty>
+                        <isNotEmpty prepend="," property="DD_Details">DD_Details</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="D_ID">#D_ID#</isNotEmpty>
+                    <isNotEmpty prepend="," property="DD_Details">#DD_Details#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="DD_Id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[DistanceDetails] 
+            <dynamic prepend="set">
+                            <isNotNull property="D_ID" prepend=",">D_ID=#D_ID#</isNotNull>
+                            <isNotNull property="DD_Details" prepend=",">DD_Details=#DD_Details#</isNotNull>
+                            <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+             </dynamic>
+            where DD_Id = #DD_Id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[DistanceDetails] 
+            WHERE DD_Id = #DD_Id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="distanceDetailsEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            DD_Id,D_ID,DD_Details,IsDelState from DistanceDetails
+            <dynamic prepend="where">
+                       <isNotEmpty property="DD_Id" prepend="and">DD_Id=#DD_Id#</isNotEmpty>
+                       <isNotEmpty property="D_ID" prepend="and">D_ID=#D_ID#</isNotEmpty>
+                       <isNotEmpty property="DD_Details" prepend="and">DD_Details=#DD_Details#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+            order by DD_Id desc
+		</select>
+
+
+    <select id="distancedetails_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(DD_Id) from DistanceDetails
+            <dynamic prepend="where">
+                       <isNotEmpty property="DD_Id" prepend="and">DD_Id=#DD_Id#</isNotEmpty>
+                       <isNotEmpty property="D_ID" prepend="and">D_ID=#D_ID#</isNotEmpty>
+                       <isNotEmpty property="DD_Details" prepend="and">DD_Details=#DD_Details#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="distancedetails_list" listClass="list" resultClass="distanceDetailsEntity" parameterClass="System.Collections.IDictionary">
+            with distancedetails_list as
+            (
+            select  DD_Id,D_ID,DD_Details,IsDelState,ROW_NUMBER() OVER (order by DD_Id desc) as pos from DistanceDetails
+            <dynamic prepend="where">
+                       <isNotEmpty property="DD_Id" prepend="and">DD_Id=#DD_Id#</isNotEmpty>
+                       <isNotEmpty property="D_ID" prepend="and">D_ID=#D_ID#</isNotEmpty>
+                       <isNotEmpty property="DD_Details" prepend="and">DD_Details=#DD_Details#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+            </dynamic>
+          )
+
+          select DD_Id,D_ID,DD_Details,IsDelState from distancedetails_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

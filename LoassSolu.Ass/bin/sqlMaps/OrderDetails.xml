@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="OrderDetailsEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].OrderDetails 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="O_ID">O_ID</isNotEmpty>
+                        <isNotEmpty prepend="," property="P_ID">P_ID</isNotEmpty>
+                        <isNotEmpty prepend="," property="OD_Price">OD_Price</isNotEmpty>
+                        <isNotEmpty prepend="," property="IsDelState">IsDelState</isNotEmpty>
+                        <isNotEmpty prepend="," property="PA_Id">PA_Id</isNotEmpty>
+                        <isNotEmpty prepend="," property="PAR_ID">PAR_ID</isNotEmpty>
+                        <isNotEmpty prepend="," property="OD_UserRemark">OD_UserRemark</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="O_ID">#O_ID#</isNotEmpty>
+                    <isNotEmpty prepend="," property="P_ID">#P_ID#</isNotEmpty>
+                    <isNotEmpty prepend="," property="OD_Price">#OD_Price#</isNotEmpty>
+                    <isNotEmpty prepend="," property="IsDelState">#IsDelState#</isNotEmpty>
+                    <isNotEmpty prepend="," property="PA_Id">#PA_Id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="PAR_ID">#PAR_ID#</isNotEmpty>
+                    <isNotEmpty prepend="," property="OD_UserRemark">#OD_UserRemark#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="OD_ID">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[OrderDetails] 
+            <dynamic prepend="set">
+                            <isNotNull property="O_ID" prepend=",">O_ID=#O_ID#</isNotNull>
+                            <isNotNull property="P_ID" prepend=",">P_ID=#P_ID#</isNotNull>
+                            <isNotNull property="OD_Price" prepend=",">OD_Price=#OD_Price#</isNotNull>
+                            <isNotNull property="IsDelState" prepend=",">IsDelState=#IsDelState#</isNotNull>
+                            <isNotNull property="PA_Id" prepend=",">PA_Id=#PA_Id#</isNotNull>
+                            <isNotNull property="PAR_ID" prepend=",">PAR_ID=#PAR_ID#</isNotNull>
+                            <isNotNull property="OD_UserRemark" prepend=",">OD_UserRemark=#OD_UserRemark#</isNotNull>
+             </dynamic>
+            where OD_ID = #OD_ID#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[OrderDetails] 
+            WHERE OD_ID = #OD_ID#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="orderDetailsEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            OD_ID,O_ID,P_ID,OD_Price,IsDelState,PA_Id,PAR_ID,OD_UserRemark from OrderDetails
+            <dynamic prepend="where">
+                       <isNotEmpty property="OD_ID" prepend="and">OD_ID=#OD_ID#</isNotEmpty>
+                       <isNotEmpty property="O_ID" prepend="and">O_ID=#O_ID#</isNotEmpty>
+                       <isNotEmpty property="P_ID" prepend="and">P_ID=#P_ID#</isNotEmpty>
+                       <isNotEmpty property="OD_Price" prepend="and">OD_Price=#OD_Price#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+                       <isNotEmpty property="PA_Id" prepend="and">PA_Id=#PA_Id#</isNotEmpty>
+                       <isNotEmpty property="PAR_ID" prepend="and">PAR_ID=#PAR_ID#</isNotEmpty>
+                       <isNotEmpty property="OD_UserRemark" prepend="and">OD_UserRemark=#OD_UserRemark#</isNotEmpty>
+            </dynamic>
+            order by OD_ID desc
+		</select>
+
+
+    <select id="orderdetails_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(OD_ID) from OrderDetails
+            <dynamic prepend="where">
+                       <isNotEmpty property="OD_ID" prepend="and">OD_ID=#OD_ID#</isNotEmpty>
+                       <isNotEmpty property="O_ID" prepend="and">O_ID=#O_ID#</isNotEmpty>
+                       <isNotEmpty property="P_ID" prepend="and">P_ID=#P_ID#</isNotEmpty>
+                       <isNotEmpty property="OD_Price" prepend="and">OD_Price=#OD_Price#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+                       <isNotEmpty property="PA_Id" prepend="and">PA_Id=#PA_Id#</isNotEmpty>
+                       <isNotEmpty property="PAR_ID" prepend="and">PAR_ID=#PAR_ID#</isNotEmpty>
+                       <isNotEmpty property="OD_UserRemark" prepend="and">OD_UserRemark=#OD_UserRemark#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="orderdetails_list" listClass="list" resultClass="orderDetailsEntity" parameterClass="System.Collections.IDictionary">
+            with orderdetails_list as
+            (
+            select  OD_ID,O_ID,P_ID,OD_Price,IsDelState,PA_Id,PAR_ID,OD_UserRemark,ROW_NUMBER() OVER (order by OD_ID desc) as pos from OrderDetails
+            <dynamic prepend="where">
+                       <isNotEmpty property="OD_ID" prepend="and">OD_ID=#OD_ID#</isNotEmpty>
+                       <isNotEmpty property="O_ID" prepend="and">O_ID=#O_ID#</isNotEmpty>
+                       <isNotEmpty property="P_ID" prepend="and">P_ID=#P_ID#</isNotEmpty>
+                       <isNotEmpty property="OD_Price" prepend="and">OD_Price=#OD_Price#</isNotEmpty>
+                       <isNotEmpty property="IsDelState" prepend="and">IsDelState=#IsDelState#</isNotEmpty>
+                       <isNotEmpty property="PA_Id" prepend="and">PA_Id=#PA_Id#</isNotEmpty>
+                       <isNotEmpty property="PAR_ID" prepend="and">PAR_ID=#PAR_ID#</isNotEmpty>
+                       <isNotEmpty property="OD_UserRemark" prepend="and">OD_UserRemark=#OD_UserRemark#</isNotEmpty>
+            </dynamic>
+          )
+
+          select OD_ID,O_ID,P_ID,OD_Price,IsDelState,PA_Id,PAR_ID,OD_UserRemark from orderdetails_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

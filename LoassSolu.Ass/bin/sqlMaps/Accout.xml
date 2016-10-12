@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="AccoutEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].Accout 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="S_Id">S_Id</isNotEmpty>
+                        <isNotEmpty prepend="," property="A_RountingNumber">A_RountingNumber</isNotEmpty>
+                        <isNotEmpty prepend="," property="A_BackAccountNumber">A_BackAccountNumber</isNotEmpty>
+                        <isNotEmpty prepend="," property="A_AccountHolderName">A_AccountHolderName</isNotEmpty>
+                        <isNotEmpty prepend="," property="A_BIName">A_BIName</isNotEmpty>
+                        <isNotEmpty prepend="," property="A_EINum">A_EINum</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="S_Id">#S_Id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="A_RountingNumber">#A_RountingNumber#</isNotEmpty>
+                    <isNotEmpty prepend="," property="A_BackAccountNumber">#A_BackAccountNumber#</isNotEmpty>
+                    <isNotEmpty prepend="," property="A_AccountHolderName">#A_AccountHolderName#</isNotEmpty>
+                    <isNotEmpty prepend="," property="A_BIName">#A_BIName#</isNotEmpty>
+                    <isNotEmpty prepend="," property="A_EINum">#A_EINum#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="A_Id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[Accout] 
+            <dynamic prepend="set">
+                            <isNotNull property="S_Id" prepend=",">S_Id=#S_Id#</isNotNull>
+                            <isNotNull property="A_RountingNumber" prepend=",">A_RountingNumber=#A_RountingNumber#</isNotNull>
+                            <isNotNull property="A_BackAccountNumber" prepend=",">A_BackAccountNumber=#A_BackAccountNumber#</isNotNull>
+                            <isNotNull property="A_AccountHolderName" prepend=",">A_AccountHolderName=#A_AccountHolderName#</isNotNull>
+                            <isNotNull property="A_BIName" prepend=",">A_BIName=#A_BIName#</isNotNull>
+                            <isNotNull property="A_EINum" prepend=",">A_EINum=#A_EINum#</isNotNull>
+             </dynamic>
+            where A_Id = #A_Id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[Accout] 
+            WHERE A_Id = #A_Id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="accoutEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            A_Id,S_Id,A_RountingNumber,A_BackAccountNumber,A_AccountHolderName,A_BIName,A_EINum from Accout
+            <dynamic prepend="where">
+                       <isNotEmpty property="A_Id" prepend="and">A_Id=#A_Id#</isNotEmpty>
+                       <isNotEmpty property="S_Id" prepend="and">S_Id=#S_Id#</isNotEmpty>
+                       <isNotEmpty property="A_RountingNumber" prepend="and">A_RountingNumber=#A_RountingNumber#</isNotEmpty>
+                       <isNotEmpty property="A_BackAccountNumber" prepend="and">A_BackAccountNumber=#A_BackAccountNumber#</isNotEmpty>
+                       <isNotEmpty property="A_AccountHolderName" prepend="and">A_AccountHolderName=#A_AccountHolderName#</isNotEmpty>
+                       <isNotEmpty property="A_BIName" prepend="and">A_BIName=#A_BIName#</isNotEmpty>
+                       <isNotEmpty property="A_EINum" prepend="and">A_EINum=#A_EINum#</isNotEmpty>
+            </dynamic>
+            order by A_Id desc
+		</select>
+
+
+    <select id="accout_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(A_Id) from Accout
+            <dynamic prepend="where">
+                       <isNotEmpty property="A_Id" prepend="and">A_Id=#A_Id#</isNotEmpty>
+                       <isNotEmpty property="S_Id" prepend="and">S_Id=#S_Id#</isNotEmpty>
+                       <isNotEmpty property="A_RountingNumber" prepend="and">A_RountingNumber=#A_RountingNumber#</isNotEmpty>
+                       <isNotEmpty property="A_BackAccountNumber" prepend="and">A_BackAccountNumber=#A_BackAccountNumber#</isNotEmpty>
+                       <isNotEmpty property="A_AccountHolderName" prepend="and">A_AccountHolderName=#A_AccountHolderName#</isNotEmpty>
+                       <isNotEmpty property="A_BIName" prepend="and">A_BIName=#A_BIName#</isNotEmpty>
+                       <isNotEmpty property="A_EINum" prepend="and">A_EINum=#A_EINum#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="accout_list" listClass="list" resultClass="accoutEntity" parameterClass="System.Collections.IDictionary">
+            with accout_list as
+            (
+            select  A_Id,S_Id,A_RountingNumber,A_BackAccountNumber,A_AccountHolderName,A_BIName,A_EINum,ROW_NUMBER() OVER (order by A_Id desc) as pos from Accout
+            <dynamic prepend="where">
+                       <isNotEmpty property="A_Id" prepend="and">A_Id=#A_Id#</isNotEmpty>
+                       <isNotEmpty property="S_Id" prepend="and">S_Id=#S_Id#</isNotEmpty>
+                       <isNotEmpty property="A_RountingNumber" prepend="and">A_RountingNumber=#A_RountingNumber#</isNotEmpty>
+                       <isNotEmpty property="A_BackAccountNumber" prepend="and">A_BackAccountNumber=#A_BackAccountNumber#</isNotEmpty>
+                       <isNotEmpty property="A_AccountHolderName" prepend="and">A_AccountHolderName=#A_AccountHolderName#</isNotEmpty>
+                       <isNotEmpty property="A_BIName" prepend="and">A_BIName=#A_BIName#</isNotEmpty>
+                       <isNotEmpty property="A_EINum" prepend="and">A_EINum=#A_EINum#</isNotEmpty>
+            </dynamic>
+          )
+
+          select A_Id,S_Id,A_RountingNumber,A_BackAccountNumber,A_AccountHolderName,A_BIName,A_EINum from accout_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>
