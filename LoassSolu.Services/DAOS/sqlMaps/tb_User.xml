@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="tb_UserEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements> 
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].tb_User 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="user_name">user_name</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_pwd">user_pwd</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_phone">user_phone</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_sex">user_sex</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_qq">user_qq</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_email">user_email</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_address">user_address</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_mark">user_mark</isNotEmpty>
+                        <isNotEmpty prepend="," property="rank_id">rank_id</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_last_login_ip">user_last_login_ip</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_birthday">user_birthday</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_description">user_description</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_image_url">user_image_url</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_school">user_school</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_register_time">user_register_time</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_register_ip">user_register_ip</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_last_update_time">user_last_update_time</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_weibo">user_weibo</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_blood_type">user_blood_type</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_says">user_says</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_lock">user_lock</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_freeze">user_freeze</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_power">user_power</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="user_name">#user_name#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_pwd">#user_pwd#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_phone">#user_phone#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_sex">#user_sex#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_qq">#user_qq#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_email">#user_email#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_address">#user_address#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_mark">#user_mark#</isNotEmpty>
+                    <isNotEmpty prepend="," property="rank_id">#rank_id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_last_login_ip">#user_last_login_ip#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_birthday">#user_birthday#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_description">#user_description#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_image_url">#user_image_url#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_school">#user_school#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_register_time">#user_register_time#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_register_ip">#user_register_ip#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_last_update_time">#user_last_update_time#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_weibo">#user_weibo#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_blood_type">#user_blood_type#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_says">#user_says#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_lock">#user_lock#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_freeze">#user_freeze#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_power">#user_power#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="user_id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[tb_User] 
+            <dynamic prepend="set">
+                            <isNotNull property="user_name" prepend=",">user_name=#user_name#</isNotNull>
+                            <isNotNull property="user_pwd" prepend=",">user_pwd=#user_pwd#</isNotNull>
+                            <isNotNull property="user_phone" prepend=",">user_phone=#user_phone#</isNotNull>
+                            <isNotNull property="user_sex" prepend=",">user_sex=#user_sex#</isNotNull>
+                            <isNotNull property="user_qq" prepend=",">user_qq=#user_qq#</isNotNull>
+                            <isNotNull property="user_email" prepend=",">user_email=#user_email#</isNotNull>
+                            <isNotNull property="user_address" prepend=",">user_address=#user_address#</isNotNull>
+                            <isNotNull property="user_mark" prepend=",">user_mark=#user_mark#</isNotNull>
+                            <isNotNull property="rank_id" prepend=",">rank_id=#rank_id#</isNotNull>
+                            <isNotNull property="user_last_login_ip" prepend=",">user_last_login_ip=#user_last_login_ip#</isNotNull>
+                            <isNotNull property="user_birthday" prepend=",">user_birthday=#user_birthday#</isNotNull>
+                            <isNotNull property="user_description" prepend=",">user_description=#user_description#</isNotNull>
+                            <isNotNull property="user_image_url" prepend=",">user_image_url=#user_image_url#</isNotNull>
+                            <isNotNull property="user_school" prepend=",">user_school=#user_school#</isNotNull>
+                            <isNotNull property="user_register_time" prepend=",">user_register_time=#user_register_time#</isNotNull>
+                            <isNotNull property="user_register_ip" prepend=",">user_register_ip=#user_register_ip#</isNotNull>
+                            <isNotNull property="user_last_update_time" prepend=",">user_last_update_time=#user_last_update_time#</isNotNull>
+                            <isNotNull property="user_weibo" prepend=",">user_weibo=#user_weibo#</isNotNull>
+                            <isNotNull property="user_blood_type" prepend=",">user_blood_type=#user_blood_type#</isNotNull>
+                            <isNotNull property="user_says" prepend=",">user_says=#user_says#</isNotNull>
+                            <isNotNull property="user_lock" prepend=",">user_lock=#user_lock#</isNotNull>
+                            <isNotNull property="user_freeze" prepend=",">user_freeze=#user_freeze#</isNotNull>
+                            <isNotNull property="user_power" prepend=",">user_power=#user_power#</isNotNull>
+             </dynamic>
+            where user_id = #user_id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[tb_User] 
+            WHERE user_id = #user_id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="tb_UserEntity">
+            SELECT 
+             <!--<dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>-->
+            user_id,user_name,user_pwd,user_phone,user_sex,user_qq,user_email,user_address,user_mark,rank_id,user_last_login_ip,user_birthday,user_description,user_image_url,user_school,user_register_time,user_register_ip,user_last_update_time,user_weibo,user_blood_type,user_says,user_lock,user_freeze,user_power from tb_User
+            <!--<dynamic prepend="where">
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+                       <isNotEmpty property="user_name" prepend="and">user_name=#user_name#</isNotEmpty>
+                       <isNotEmpty property="user_pwd" prepend="and">user_pwd=#user_pwd#</isNotEmpty>
+                       <isNotEmpty property="user_phone" prepend="and">user_phone=#user_phone#</isNotEmpty>
+                       <isNotEmpty property="user_sex" prepend="and">user_sex=#user_sex#</isNotEmpty>
+                       <isNotEmpty property="user_qq" prepend="and">user_qq=#user_qq#</isNotEmpty>
+                       <isNotEmpty property="user_email" prepend="and">user_email=#user_email#</isNotEmpty>
+                       <isNotEmpty property="user_address" prepend="and">user_address=#user_address#</isNotEmpty>
+                       <isNotEmpty property="user_mark" prepend="and">user_mark=#user_mark#</isNotEmpty>
+                       <isNotEmpty property="rank_id" prepend="and">rank_id=#rank_id#</isNotEmpty>
+                       <isNotEmpty property="user_last_login_ip" prepend="and">user_last_login_ip=#user_last_login_ip#</isNotEmpty>
+                       <isNotEmpty property="user_birthday" prepend="and">user_birthday=#user_birthday#</isNotEmpty>
+                       <isNotEmpty property="user_description" prepend="and">user_description=#user_description#</isNotEmpty>
+                       <isNotEmpty property="user_image_url" prepend="and">user_image_url=#user_image_url#</isNotEmpty>
+                       <isNotEmpty property="user_school" prepend="and">user_school=#user_school#</isNotEmpty>
+                       <isNotEmpty property="user_register_time" prepend="and">user_register_time=#user_register_time#</isNotEmpty>
+                       <isNotEmpty property="user_register_ip" prepend="and">user_register_ip=#user_register_ip#</isNotEmpty>
+                       <isNotEmpty property="user_last_update_time" prepend="and">user_last_update_time=#user_last_update_time#</isNotEmpty>
+                       <isNotEmpty property="user_weibo" prepend="and">user_weibo=#user_weibo#</isNotEmpty>
+                       <isNotEmpty property="user_blood_type" prepend="and">user_blood_type=#user_blood_type#</isNotEmpty>
+                       <isNotEmpty property="user_says" prepend="and">user_says=#user_says#</isNotEmpty>
+                       <isNotEmpty property="user_lock" prepend="and">user_lock=#user_lock#</isNotEmpty>
+                       <isNotEmpty property="user_freeze" prepend="and">user_freeze=#user_freeze#</isNotEmpty>
+                       <isNotEmpty property="user_power" prepend="and">user_power=#user_power#</isNotEmpty>
+            </dynamic>-->
+            order by user_id desc
+		</select>
+
+
+    <!--<select id="tb_user_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(user_id) from tb_User
+            <dynamic prepend="where">
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+                       <isNotEmpty property="user_name" prepend="and">user_name=#user_name#</isNotEmpty>
+                       <isNotEmpty property="user_pwd" prepend="and">user_pwd=#user_pwd#</isNotEmpty>
+                       <isNotEmpty property="user_phone" prepend="and">user_phone=#user_phone#</isNotEmpty>
+                       <isNotEmpty property="user_sex" prepend="and">user_sex=#user_sex#</isNotEmpty>
+                       <isNotEmpty property="user_qq" prepend="and">user_qq=#user_qq#</isNotEmpty>
+                       <isNotEmpty property="user_email" prepend="and">user_email=#user_email#</isNotEmpty>
+                       <isNotEmpty property="user_address" prepend="and">user_address=#user_address#</isNotEmpty>
+                       <isNotEmpty property="user_mark" prepend="and">user_mark=#user_mark#</isNotEmpty>
+                       <isNotEmpty property="rank_id" prepend="and">rank_id=#rank_id#</isNotEmpty>
+                       <isNotEmpty property="user_last_login_ip" prepend="and">user_last_login_ip=#user_last_login_ip#</isNotEmpty>
+                       <isNotEmpty property="user_birthday" prepend="and">user_birthday=#user_birthday#</isNotEmpty>
+                       <isNotEmpty property="user_description" prepend="and">user_description=#user_description#</isNotEmpty>
+                       <isNotEmpty property="user_image_url" prepend="and">user_image_url=#user_image_url#</isNotEmpty>
+                       <isNotEmpty property="user_school" prepend="and">user_school=#user_school#</isNotEmpty>
+                       <isNotEmpty property="user_register_time" prepend="and">user_register_time=#user_register_time#</isNotEmpty>
+                       <isNotEmpty property="user_register_ip" prepend="and">user_register_ip=#user_register_ip#</isNotEmpty>
+                       <isNotEmpty property="user_last_update_time" prepend="and">user_last_update_time=#user_last_update_time#</isNotEmpty>
+                       <isNotEmpty property="user_weibo" prepend="and">user_weibo=#user_weibo#</isNotEmpty>
+                       <isNotEmpty property="user_blood_type" prepend="and">user_blood_type=#user_blood_type#</isNotEmpty>
+                       <isNotEmpty property="user_says" prepend="and">user_says=#user_says#</isNotEmpty>
+                       <isNotEmpty property="user_lock" prepend="and">user_lock=#user_lock#</isNotEmpty>
+                       <isNotEmpty property="user_freeze" prepend="and">user_freeze=#user_freeze#</isNotEmpty>
+                       <isNotEmpty property="user_power" prepend="and">user_power=#user_power#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="tb_user_list" listClass="list" resultClass="tb_UserEntity" parameterClass="System.Collections.IDictionary">
+            with tb_user_list as
+            (
+            select  user_id,user_name,user_pwd,user_phone,user_sex,user_qq,user_email,user_address,user_mark,rank_id,user_last_login_ip,user_birthday,user_description,user_image_url,user_school,user_register_time,user_register_ip,user_last_update_time,user_weibo,user_blood_type,user_says,user_lock,user_freeze,user_power,ROW_NUMBER() OVER (order by user_id desc) as pos from tb_User
+            <dynamic prepend="where">
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+                       <isNotEmpty property="user_name" prepend="and">user_name=#user_name#</isNotEmpty>
+                       <isNotEmpty property="user_pwd" prepend="and">user_pwd=#user_pwd#</isNotEmpty>
+                       <isNotEmpty property="user_phone" prepend="and">user_phone=#user_phone#</isNotEmpty>
+                       <isNotEmpty property="user_sex" prepend="and">user_sex=#user_sex#</isNotEmpty>
+                       <isNotEmpty property="user_qq" prepend="and">user_qq=#user_qq#</isNotEmpty>
+                       <isNotEmpty property="user_email" prepend="and">user_email=#user_email#</isNotEmpty>
+                       <isNotEmpty property="user_address" prepend="and">user_address=#user_address#</isNotEmpty>
+                       <isNotEmpty property="user_mark" prepend="and">user_mark=#user_mark#</isNotEmpty>
+                       <isNotEmpty property="rank_id" prepend="and">rank_id=#rank_id#</isNotEmpty>
+                       <isNotEmpty property="user_last_login_ip" prepend="and">user_last_login_ip=#user_last_login_ip#</isNotEmpty>
+                       <isNotEmpty property="user_birthday" prepend="and">user_birthday=#user_birthday#</isNotEmpty>
+                       <isNotEmpty property="user_description" prepend="and">user_description=#user_description#</isNotEmpty>
+                       <isNotEmpty property="user_image_url" prepend="and">user_image_url=#user_image_url#</isNotEmpty>
+                       <isNotEmpty property="user_school" prepend="and">user_school=#user_school#</isNotEmpty>
+                       <isNotEmpty property="user_register_time" prepend="and">user_register_time=#user_register_time#</isNotEmpty>
+                       <isNotEmpty property="user_register_ip" prepend="and">user_register_ip=#user_register_ip#</isNotEmpty>
+                       <isNotEmpty property="user_last_update_time" prepend="and">user_last_update_time=#user_last_update_time#</isNotEmpty>
+                       <isNotEmpty property="user_weibo" prepend="and">user_weibo=#user_weibo#</isNotEmpty>
+                       <isNotEmpty property="user_blood_type" prepend="and">user_blood_type=#user_blood_type#</isNotEmpty>
+                       <isNotEmpty property="user_says" prepend="and">user_says=#user_says#</isNotEmpty>
+                       <isNotEmpty property="user_lock" prepend="and">user_lock=#user_lock#</isNotEmpty>
+                       <isNotEmpty property="user_freeze" prepend="and">user_freeze=#user_freeze#</isNotEmpty>
+                       <isNotEmpty property="user_power" prepend="and">user_power=#user_power#</isNotEmpty>
+            </dynamic>
+          )
+
+          select user_id,user_name,user_pwd,user_phone,user_sex,user_qq,user_email,user_address,user_mark,rank_id,user_last_login_ip,user_birthday,user_description,user_image_url,user_school,user_register_time,user_register_ip,user_last_update_time,user_weibo,user_blood_type,user_says,user_lock,user_freeze,user_power from tb_user_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>-->
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

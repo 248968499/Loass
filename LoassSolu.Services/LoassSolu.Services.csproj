@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AE6DE19D-7032-459C-A789-6587797024A9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LoassSolu.Services</RootNamespace>
+    <AssemblyName>LoassSolu.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="IBatisNet.Common">
+      <HintPath>..\Thirddlls\IBatisNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.DataAccess">
+      <HintPath>..\Thirddlls\IBatisNet.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.DataMapper">
+      <HintPath>..\Thirddlls\IBatisNet.DataMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Thirddlls\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.0.8.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Thirddlls\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\tb_About_BlogAction.cs" />
+    <Compile Include="Actions\tb_AdAction.cs" />
+    <Compile Include="Actions\tb_ArticleAction.cs" />
+    <Compile Include="Actions\tb_Article_SortAction.cs" />
+    <Compile Include="Actions\tb_FriendAction.cs" />
+    <Compile Include="Actions\tb_Friendly_LinkAction.cs" />
+    <Compile Include="Actions\tb_GroupAction.cs" />
+    <Compile Include="Actions\tb_Group_PowerAction.cs" />
+    <Compile Include="Actions\tb_Phone_MessageAction.cs" />
+    <Compile Include="Actions\tb_PhotosAction.cs" />
+    <Compile Include="Actions\tb_Photo_SortAction.cs" />
+    <Compile Include="Actions\tb_Power_ListAction.cs" />
+    <Compile Include="Actions\tb_Secret_MessageAction.cs" />
+    <Compile Include="Actions\tb_ShuoshuoAction.cs" />
+    <Compile Include="Actions\tb_System_MessageAction.cs" />
+    <Compile Include="Actions\tb_UserAction.cs" />
+    <Compile Include="Actions\tb_User_AttentionAction.cs" />
+    <Compile Include="Actions\tb_User_CommentAction.cs" />
+    <Compile Include="Actions\tb_User_GroupAction.cs" />
+    <Compile Include="Actions\tb_User_PowerAction.cs" />
+    <Compile Include="Actions\tb_User_RankAction.cs" />
+    <Compile Include="Actions\tb_VisitorAction.cs" />
+    <Compile Include="DAOS\BaseDao.cs" />
+    <Compile Include="DAOS\tb_About_BlogDao.cs" />
+    <Compile Include="DAOS\tb_AdDao.cs" />
+    <Compile Include="DAOS\tb_ArticleDao.cs" />
+    <Compile Include="DAOS\tb_Article_SortDao.cs" />
+    <Compile Include="DAOS\tb_FriendDao.cs" />
+    <Compile Include="DAOS\tb_Friendly_LinkDao.cs" />
+    <Compile Include="DAOS\tb_GroupDao.cs" />
+    <Compile Include="DAOS\tb_Group_PowerDao.cs" />
+    <Compile Include="DAOS\tb_Phone_MessageDao.cs" />
+    <Compile Include="DAOS\tb_PhotosDao.cs" />
+    <Compile Include="DAOS\tb_Photo_SortDao.cs" />
+    <Compile Include="DAOS\tb_Power_ListDao.cs" />
+    <Compile Include="DAOS\tb_Secret_MessageDao.cs" />
+    <Compile Include="DAOS\tb_ShuoshuoDao.cs" />
+    <Compile Include="DAOS\tb_System_MessageDao.cs" />
+    <Compile Include="DAOS\tb_UserDao.cs" />
+    <Compile Include="DAOS\tb_User_AttentionDao.cs" />
+    <Compile Include="DAOS\tb_User_CommentDao.cs" />
+    <Compile Include="DAOS\tb_User_GroupDao.cs" />
+    <Compile Include="DAOS\tb_User_PowerDao.cs" />
+    <Compile Include="DAOS\tb_User_RankDao.cs" />
+    <Compile Include="DAOS\tb_VisitorDao.cs" />
+    <Compile Include="Entities\tb_About_BlogEntity.cs" />
+    <Compile Include="Entities\tb_AdEntity.cs" />
+    <Compile Include="Entities\tb_ArticleEntity.cs" />
+    <Compile Include="Entities\tb_Article_SortEntity.cs" />
+    <Compile Include="Entities\tb_FriendEntity.cs" />
+    <Compile Include="Entities\tb_Friendly_LinkEntity.cs" />
+    <Compile Include="Entities\tb_GroupEntity.cs" />
+    <Compile Include="Entities\tb_Group_PowerEntity.cs" />
+    <Compile Include="Entities\tb_Phone_MessageEntity.cs" />
+    <Compile Include="Entities\tb_PhotosEntity.cs" />
+    <Compile Include="Entities\tb_Photo_SortEntity.cs" />
+    <Compile Include="Entities\tb_Power_ListEntity.cs" />
+    <Compile Include="Entities\tb_Secret_MessageEntity.cs" />
+    <Compile Include="Entities\tb_ShuoshuoEntity.cs" />
+    <Compile Include="Entities\tb_System_MessageEntity.cs" />
+    <Compile Include="Entities\tb_UserEntity.cs" />
+    <Compile Include="Entities\tb_User_AttentionEntity.cs" />
+    <Compile Include="Entities\tb_User_CommentEntity.cs" />
+    <Compile Include="Entities\tb_User_GroupEntity.cs" />
+    <Compile Include="Entities\tb_User_PowerEntity.cs" />
+    <Compile Include="Entities\tb_User_RankEntity.cs" />
+    <Compile Include="Entities\tb_VisitorEntity.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlMapper\SqlMapperManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DAOS\build.bat" />
+    <None Include="DAOS\config\AppSettings.config" />
+    <None Include="DAOS\config\Log4Net.config" />
+    <None Include="DAOS\config\properties.config" />
+    <None Include="DAOS\config\providers.config" />
+    <None Include="DAOS\config\SqlMap.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DAOS\sqlMaps\SqlMap.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DAOS\sqlMaps\Alias.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAOS\sqlMaps\tb_About_Blog.xml" />
+    <Content Include="DAOS\sqlMaps\tb_Ad.xml" />
+    <Content Include="DAOS\sqlMaps\tb_Article.xml" />
+    <Content Include="DAOS\sqlMaps\tb_Article_Sort.xml" />
+    <Content Include="DAOS\sqlMaps\tb_Friend.xml" />
+    <Content Include="DAOS\sqlMaps\tb_Friendly_Link.xml" />
+    <Content Include="DAOS\sqlMaps\tb_Group.xml" />
+    <Content Include="DAOS\sqlMaps\tb_Group_Power.xml" />
+    <Content Include="DAOS\sqlMaps\tb_Phone_Message.xml" />
+    <Content Include="DAOS\sqlMaps\tb_Photos.xml" />
+    <Content Include="DAOS\sqlMaps\tb_Photo_Sort.xml" />
+    <Content Include="DAOS\sqlMaps\tb_Power_List.xml" />
+    <Content Include="DAOS\sqlMaps\tb_Secret_Message.xml" />
+    <Content Include="DAOS\sqlMaps\tb_Shuoshuo.xml" />
+    <Content Include="DAOS\sqlMaps\tb_System_Message.xml" />
+    <Content Include="DAOS\sqlMaps\tb_User.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DAOS\sqlMaps\tb_User_Attention.xml" />
+    <Content Include="DAOS\sqlMaps\tb_User_Comment.xml" />
+    <Content Include="DAOS\sqlMaps\tb_User_Group.xml" />
+    <Content Include="DAOS\sqlMaps\tb_User_Power.xml" />
+    <Content Include="DAOS\sqlMaps\tb_User_Rank.xml" />
+    <Content Include="DAOS\sqlMaps\tb_Visitor.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LoassSolu.Common\LoassSolu.Common.csproj">
+      <Project>{d78d7ff1-6e1a-4604-a8cd-3883c1d61fab}</Project>
+      <Name>LoassSolu.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoassSolu.Errors\LoassSolu.Errors.csproj">
+      <Project>{38796a63-4eb1-4bc9-b5e5-262201910197}</Project>
+      <Name>LoassSolu.Errors</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>call $(ProjectDir)\DAOS\build.bat $(SolutionDir)</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

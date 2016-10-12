@@ -1,0 +1,14 @@
+G:\Solu\LoassSolu\LoassSolu.Common\bin\Debug\LoassSolu.Common.dll
+G:\Solu\LoassSolu\LoassSolu.Common\bin\Debug\LoassSolu.Common.pdb
+G:\Solu\LoassSolu\LoassSolu.Common\obj\Debug\LoassSolu.Common.csprojResolveAssemblyReference.cache
+G:\Solu\LoassSolu\LoassSolu.Common\obj\Debug\LoassSolu.Common.dll
+G:\Solu\LoassSolu\LoassSolu.Common\obj\Debug\LoassSolu.Common.pdb
+G:\Solu\LoassSolu\LoassSolu.Common\bin\Debug\Newtonsoft.Json.dll
+G:\Solu\LoassSolu\LoassSolu.Common\bin\Debug\log4net.dll
+C:\Users\康\Desktop\LoassSolu\LoassSolu.Common\bin\Debug\LoassSolu.Common.dll
+C:\Users\康\Desktop\LoassSolu\LoassSolu.Common\bin\Debug\LoassSolu.Common.pdb
+C:\Users\康\Desktop\LoassSolu\LoassSolu.Common\bin\Debug\log4net.dll
+C:\Users\康\Desktop\LoassSolu\LoassSolu.Common\bin\Debug\Newtonsoft.Json.dll
+C:\Users\康\Desktop\LoassSolu\LoassSolu.Common\obj\Debug\LoassSolu.Common.dll
+C:\Users\康\Desktop\LoassSolu\LoassSolu.Common\obj\Debug\LoassSolu.Common.pdb
+C:\Users\康\Desktop\LoassSolu\LoassSolu.Common\obj\Debug\LoassSolu.Common.csprojResolveAssemblyReference.cache

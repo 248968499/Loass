@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="tb_Article_SortEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].tb_Article_Sort 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="user_id">user_id</isNotEmpty>
+                        <isNotEmpty prepend="," property="sort_article_name">sort_article_name</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="user_id">#user_id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="sort_article_name">#sort_article_name#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="sort_article_id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[tb_Article_Sort] 
+            <dynamic prepend="set">
+                            <isNotNull property="user_id" prepend=",">user_id=#user_id#</isNotNull>
+                            <isNotNull property="sort_article_name" prepend=",">sort_article_name=#sort_article_name#</isNotNull>
+             </dynamic>
+            where sort_article_id = #sort_article_id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[tb_Article_Sort] 
+            WHERE sort_article_id = #sort_article_id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="tb_Article_SortEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            sort_article_id,user_id,sort_article_name from tb_Article_Sort
+            <dynamic prepend="where">
+                       <isNotEmpty property="sort_article_id" prepend="and">sort_article_id=#sort_article_id#</isNotEmpty>
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+                       <isNotEmpty property="sort_article_name" prepend="and">sort_article_name=#sort_article_name#</isNotEmpty>
+            </dynamic>
+            order by sort_article_id desc
+		</select>
+
+
+    <select id="tb_article_sort_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(sort_article_id) from tb_Article_Sort
+            <dynamic prepend="where">
+                       <isNotEmpty property="sort_article_id" prepend="and">sort_article_id=#sort_article_id#</isNotEmpty>
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+                       <isNotEmpty property="sort_article_name" prepend="and">sort_article_name=#sort_article_name#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="tb_article_sort_list" listClass="list" resultClass="tb_Article_SortEntity" parameterClass="System.Collections.IDictionary">
+            with tb_article_sort_list as
+            (
+            select  sort_article_id,user_id,sort_article_name,ROW_NUMBER() OVER (order by sort_article_id desc) as pos from tb_Article_Sort
+            <dynamic prepend="where">
+                       <isNotEmpty property="sort_article_id" prepend="and">sort_article_id=#sort_article_id#</isNotEmpty>
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+                       <isNotEmpty property="sort_article_name" prepend="and">sort_article_name=#sort_article_name#</isNotEmpty>
+            </dynamic>
+          )
+
+          select sort_article_id,user_id,sort_article_name from tb_article_sort_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

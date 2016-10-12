@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="tb_User_GroupEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].tb_User_Group 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="user_id">user_id</isNotEmpty>
+                        <isNotEmpty prepend="," property="group_id">group_id</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="user_id">#user_id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="group_id">#group_id#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="user_id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[tb_User_Group] 
+            <dynamic prepend="set">
+                            <isNotNull property="user_id" prepend=",">user_id=#user_id#</isNotNull>
+                            <isNotNull property="group_id" prepend=",">group_id=#group_id#</isNotNull>
+             </dynamic>
+            where user_id = #user_id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[tb_User_Group] 
+            WHERE user_id = #user_id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="tb_User_GroupEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            user_id,group_id from tb_User_Group
+            <dynamic prepend="where">
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+                       <isNotEmpty property="group_id" prepend="and">group_id=#group_id#</isNotEmpty>
+            </dynamic>
+            order by user_id desc
+		</select>
+
+
+    <select id="tb_user_group_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(user_id) from tb_User_Group
+            <dynamic prepend="where">
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+                       <isNotEmpty property="group_id" prepend="and">group_id=#group_id#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="tb_user_group_list" listClass="list" resultClass="tb_User_GroupEntity" parameterClass="System.Collections.IDictionary">
+            with tb_user_group_list as
+            (
+            select  user_id,group_id,ROW_NUMBER() OVER (order by user_id desc) as pos from tb_User_Group
+            <dynamic prepend="where">
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+                       <isNotEmpty property="group_id" prepend="and">group_id=#group_id#</isNotEmpty>
+            </dynamic>
+          )
+
+          select user_id,group_id from tb_user_group_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

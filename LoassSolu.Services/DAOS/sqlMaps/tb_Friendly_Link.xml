@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="tb_Friendly_LinkEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].tb_Friendly_Link 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="link_name">link_name</isNotEmpty>
+                        <isNotEmpty prepend="," property="link_url">link_url</isNotEmpty>
+                        <isNotEmpty prepend="," property="link_logo">link_logo</isNotEmpty>
+                        <isNotEmpty prepend="," property="show_order">show_order</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_id">user_id</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="link_name">#link_name#</isNotEmpty>
+                    <isNotEmpty prepend="," property="link_url">#link_url#</isNotEmpty>
+                    <isNotEmpty prepend="," property="link_logo">#link_logo#</isNotEmpty>
+                    <isNotEmpty prepend="," property="show_order">#show_order#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_id">#user_id#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="link_id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[tb_Friendly_Link] 
+            <dynamic prepend="set">
+                            <isNotNull property="link_name" prepend=",">link_name=#link_name#</isNotNull>
+                            <isNotNull property="link_url" prepend=",">link_url=#link_url#</isNotNull>
+                            <isNotNull property="link_logo" prepend=",">link_logo=#link_logo#</isNotNull>
+                            <isNotNull property="show_order" prepend=",">show_order=#show_order#</isNotNull>
+                            <isNotNull property="user_id" prepend=",">user_id=#user_id#</isNotNull>
+             </dynamic>
+            where link_id = #link_id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[tb_Friendly_Link] 
+            WHERE link_id = #link_id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="tb_Friendly_LinkEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            link_id,link_name,link_url,link_logo,show_order,user_id from tb_Friendly_Link
+            <dynamic prepend="where">
+                       <isNotEmpty property="link_id" prepend="and">link_id=#link_id#</isNotEmpty>
+                       <isNotEmpty property="link_name" prepend="and">link_name=#link_name#</isNotEmpty>
+                       <isNotEmpty property="link_url" prepend="and">link_url=#link_url#</isNotEmpty>
+                       <isNotEmpty property="link_logo" prepend="and">link_logo=#link_logo#</isNotEmpty>
+                       <isNotEmpty property="show_order" prepend="and">show_order=#show_order#</isNotEmpty>
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+            </dynamic>
+            order by link_id desc
+		</select>
+
+
+    <select id="tb_friendly_link_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(link_id) from tb_Friendly_Link
+            <dynamic prepend="where">
+                       <isNotEmpty property="link_id" prepend="and">link_id=#link_id#</isNotEmpty>
+                       <isNotEmpty property="link_name" prepend="and">link_name=#link_name#</isNotEmpty>
+                       <isNotEmpty property="link_url" prepend="and">link_url=#link_url#</isNotEmpty>
+                       <isNotEmpty property="link_logo" prepend="and">link_logo=#link_logo#</isNotEmpty>
+                       <isNotEmpty property="show_order" prepend="and">show_order=#show_order#</isNotEmpty>
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="tb_friendly_link_list" listClass="list" resultClass="tb_Friendly_LinkEntity" parameterClass="System.Collections.IDictionary">
+            with tb_friendly_link_list as
+            (
+            select  link_id,link_name,link_url,link_logo,show_order,user_id,ROW_NUMBER() OVER (order by link_id desc) as pos from tb_Friendly_Link
+            <dynamic prepend="where">
+                       <isNotEmpty property="link_id" prepend="and">link_id=#link_id#</isNotEmpty>
+                       <isNotEmpty property="link_name" prepend="and">link_name=#link_name#</isNotEmpty>
+                       <isNotEmpty property="link_url" prepend="and">link_url=#link_url#</isNotEmpty>
+                       <isNotEmpty property="link_logo" prepend="and">link_logo=#link_logo#</isNotEmpty>
+                       <isNotEmpty property="show_order" prepend="and">show_order=#show_order#</isNotEmpty>
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+            </dynamic>
+          )
+
+          select link_id,link_name,link_url,link_logo,show_order,user_id from tb_friendly_link_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>

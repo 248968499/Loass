@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="tb_VisitorEntity"
+xmlns="http://ibatis.apache.org/mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="SqlMap.xsd">
+	
+	<statements>
+       
+		<insert id="insert" parameterClass="System.Collections.IDictionary" resultClass="int">
+			INSERT INTO [dbo].tb_Visitor 
+            (
+                <dynamic prepend=" ">
+                        <isNotEmpty prepend="," property="visitor_id">visitor_id</isNotEmpty>
+                        <isNotEmpty prepend="," property="visitor_time">visitor_time</isNotEmpty>
+                        <isNotEmpty prepend="," property="user_id">user_id</isNotEmpty>
+                        <isNotEmpty prepend="," property="visitor_ip">visitor_ip</isNotEmpty>
+                        <isNotEmpty prepend="," property="type_id">type_id</isNotEmpty>
+                        <isNotEmpty prepend="," property="where_id">where_id</isNotEmpty>
+                </dynamic>
+            )
+            values 
+            (
+             <dynamic prepend=" ">
+                    <isNotEmpty prepend="," property="visitor_id">#visitor_id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="visitor_time">#visitor_time#</isNotEmpty>
+                    <isNotEmpty prepend="," property="user_id">#user_id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="visitor_ip">#visitor_ip#</isNotEmpty>
+                    <isNotEmpty prepend="," property="type_id">#type_id#</isNotEmpty>
+                    <isNotEmpty prepend="," property="where_id">#where_id#</isNotEmpty>
+             </dynamic>
+            )
+			
+            <selectKey resultClass="int" type="post" property="v_id">
+                select @@IDENTITY as value
+            </selectKey>    
+		</insert>
+
+		<update id="update" parameterClass="System.Collections.IDictionary">
+			UPDATE [dbo].[tb_Visitor] 
+            <dynamic prepend="set">
+                            <isNotNull property="visitor_id" prepend=",">visitor_id=#visitor_id#</isNotNull>
+                            <isNotNull property="visitor_time" prepend=",">visitor_time=#visitor_time#</isNotNull>
+                            <isNotNull property="user_id" prepend=",">user_id=#user_id#</isNotNull>
+                            <isNotNull property="visitor_ip" prepend=",">visitor_ip=#visitor_ip#</isNotNull>
+                            <isNotNull property="type_id" prepend=",">type_id=#type_id#</isNotNull>
+                            <isNotNull property="where_id" prepend=",">where_id=#where_id#</isNotNull>
+             </dynamic>
+            where v_id = #v_id#
+		</update>
+
+		<delete id="delete" parameterClass="System.Collections.IDictionary">
+			DELETE FROM [dbo].[tb_Visitor] 
+            WHERE v_id = #v_id#
+		</delete>
+
+		<select id="select" listClass="list" parameterClass="System.Collections.IDictionary" resultClass="tb_VisitorEntity">
+            SELECT 
+             <dynamic prepend="top">
+                <isNotEmpty property="TopNum" prepend="">
+                    $TopNum$
+                </isNotEmpty>
+            </dynamic>
+            v_id,visitor_id,visitor_time,user_id,visitor_ip,type_id,where_id from tb_Visitor
+            <dynamic prepend="where">
+                       <isNotEmpty property="v_id" prepend="and">v_id=#v_id#</isNotEmpty>
+                       <isNotEmpty property="visitor_id" prepend="and">visitor_id=#visitor_id#</isNotEmpty>
+                       <isNotEmpty property="visitor_time" prepend="and">visitor_time=#visitor_time#</isNotEmpty>
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+                       <isNotEmpty property="visitor_ip" prepend="and">visitor_ip=#visitor_ip#</isNotEmpty>
+                       <isNotEmpty property="type_id" prepend="and">type_id=#type_id#</isNotEmpty>
+                       <isNotEmpty property="where_id" prepend="and">where_id=#where_id#</isNotEmpty>
+            </dynamic>
+            order by v_id desc
+		</select>
+
+
+    <select id="tb_visitor_count" parameterClass="System.Collections.IDictionary" resultClass="int">
+            select count(v_id) from tb_Visitor
+            <dynamic prepend="where">
+                       <isNotEmpty property="v_id" prepend="and">v_id=#v_id#</isNotEmpty>
+                       <isNotEmpty property="visitor_id" prepend="and">visitor_id=#visitor_id#</isNotEmpty>
+                       <isNotEmpty property="visitor_time" prepend="and">visitor_time=#visitor_time#</isNotEmpty>
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+                       <isNotEmpty property="visitor_ip" prepend="and">visitor_ip=#visitor_ip#</isNotEmpty>
+                       <isNotEmpty property="type_id" prepend="and">type_id=#type_id#</isNotEmpty>
+                       <isNotEmpty property="where_id" prepend="and">where_id=#where_id#</isNotEmpty>
+            </dynamic>
+    </select>
+
+ <select id="tb_visitor_list" listClass="list" resultClass="tb_VisitorEntity" parameterClass="System.Collections.IDictionary">
+            with tb_visitor_list as
+            (
+            select  v_id,visitor_id,visitor_time,user_id,visitor_ip,type_id,where_id,ROW_NUMBER() OVER (order by v_id desc) as pos from tb_Visitor
+            <dynamic prepend="where">
+                       <isNotEmpty property="v_id" prepend="and">v_id=#v_id#</isNotEmpty>
+                       <isNotEmpty property="visitor_id" prepend="and">visitor_id=#visitor_id#</isNotEmpty>
+                       <isNotEmpty property="visitor_time" prepend="and">visitor_time=#visitor_time#</isNotEmpty>
+                       <isNotEmpty property="user_id" prepend="and">user_id=#user_id#</isNotEmpty>
+                       <isNotEmpty property="visitor_ip" prepend="and">visitor_ip=#visitor_ip#</isNotEmpty>
+                       <isNotEmpty property="type_id" prepend="and">type_id=#type_id#</isNotEmpty>
+                       <isNotEmpty property="where_id" prepend="and">where_id=#where_id#</isNotEmpty>
+            </dynamic>
+          )
+
+          select v_id,visitor_id,visitor_time,user_id,visitor_ip,type_id,where_id from tb_visitor_list
+          <dynamic prepend="where">
+                <isNotEmpty property="startId" prepend="and">pos &gt;= #startId#</isNotEmpty>
+                <isNotEmpty property="endId" prepend="and">pos &lt;= #endId#</isNotEmpty>
+            </dynamic>
+
+        </select>
+
+
+
+
+
+
+
+
+	</statements>
+
+ </sqlMap>
